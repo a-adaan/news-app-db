@@ -1,21 +1,58 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: "Neue Kaine";
+  src: url("/font/Neue Kaine Variable.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Neue Kaine", sans-serif;
+}
+
+.loader {
+  --s: 84px;
+  width: var(--s);
+  aspect-ratio: 2;
+  --_g: #f2752e 90%, #f2752e;
+  background: radial-gradient(farthest-side at bottom, var(--_g)) 0
+      calc(50% - var(--s) / 16),
+    radial-gradient(farthest-side at top, var(--_g)) 0 calc(50% + var(--s) / 16),
+    radial-gradient(farthest-side at bottom, var(--_g)) 50%
+      calc(50% - var(--s) / 16),
+    radial-gradient(farthest-side at top, var(--_g)) 50%
+      calc(50% + var(--s) / 16),
+    radial-gradient(farthest-side at bottom, var(--_g)) 100%
+      calc(50% - var(--s) / 16),
+    radial-gradient(farthest-side at top, var(--_g)) 100%
+      calc(50% + var(--s) / 16);
+  background-size: 25% 25%;
+  background-repeat: no-repeat;
+
+  animation: l13 1s infinite linear;
+}
+@keyframes l13 {
+  16.67% {
+    background-position: 0 0, 0 100%, 50% calc(50% - var(--s) / 8),
+      50% calc(50% + var(--s) / 16), 100% calc(50% - var(--s) / 16),
+      100% calc(50% + var(--s) / 16);
+  }
+  33.33% {
+    background-position: 0 0, 0 100%, 50% 0, 50% 100%,
+      100% calc(50% - var(--s) / 16), 100% calc(50% + var(--s) / 16);
+  }
+  50% {
+    background-position: 0 0, 0 100%, 50% 0, 50% 100%, 100% 0, 100% 100%;
+  }
+  66.67% {
+    background-position: 0 calc(50% - var(--s) / 16),
+      0 calc(50% + var(--s) / 16), 50% 0, 50% 100%, 100% 0, 100% 100%;
+  }
+  83.33% {
+    background-position: 0 calc(50% - var(--s) / 16),
+      0 calc(50% + var(--s) / 16), 50% calc(50% - var(--s) / 16),
+      50% calc(50% + var(--s) / 16), 100% 0, 100% 100%;
+  }
 }
