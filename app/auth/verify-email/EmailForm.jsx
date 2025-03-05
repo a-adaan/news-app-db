@@ -1,5 +1,7 @@
 "use client";
 import { Input, Button, addToast } from "@heroui/react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function EmailForm() {
@@ -9,14 +11,23 @@ export default function EmailForm() {
     reset,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const pathname = usePathname();
+  useEffect(() => {
+    setIsLoading(false);
+  }, [pathname]);
   const handleLoginForm = (data) => {
+    setIsLoading(true);
     console.log("🚀 ~ handleContactForm ~ data:", data);
     addToast({
       title: "Success",
       description: "Logged in successfully",
       color: "success",
     });
+    router.push("/auth/otp");
     reset();
+    // setIsLoading(false);
   };
   return (
     <div className="px-3 md:px-20 w-full">
@@ -39,6 +50,7 @@ export default function EmailForm() {
         <Button
           type="submit"
           radius="sm"
+          isLoading={isLoading}
           color="default"
           className="bg-black text-white w-full h-[41px] text-base font-extrabold"
         >

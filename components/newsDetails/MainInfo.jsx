@@ -4,6 +4,7 @@ import { BiSolidLike } from "react-icons/bi";
 import Image from "next/image";
 import ShareBtn from "./ShareBtn";
 import CmtSec from "./commentSection.jsx/CmtSec";
+import LoadingWrapper from "../LoaddingWrapper";
 
 export default function MainInfo() {
   return (
@@ -15,9 +16,11 @@ export default function MainInfo() {
         World
       </span>
       <div className="flex items-center justify-between lg:mt-6 ">
-        <span className="hidden h-5 w-[57px] lg:flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs bg-[#6E74FF]">
-          World
-        </span>
+        <LoadingWrapper link={`/category/tag`}>
+          <span className="hidden h-5 w-[57px] lg:flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs bg-[#6E74FF]">
+            World
+          </span>
+        </LoadingWrapper>
         <span className="flex items-center gap-3">
           <IoCalendar size={20} color="#9D9D9D" />
           <span className="text-xs font-extrabold text-black">MAR 3, 2024</span>

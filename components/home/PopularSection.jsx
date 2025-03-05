@@ -2,6 +2,7 @@ import Link from "next/link";
 import NewsCard from "./NewsCard";
 import { GoChevronRight } from "react-icons/go";
 import Image from "next/image";
+import LoadingWrapper from "../LoaddingWrapper";
 
 export default function PopularSection() {
   const newsData = [
@@ -46,15 +47,15 @@ export default function PopularSection() {
     <section className="h-auto my-14">
       <div className="flex justify-between items-center">
         <p className="text-black text-[20px] my-4 font-[900]">Popular News</p>
-        <Link
-          href="/"
-          className="text-primary capitalize text-sm font-bold flex items-center gap-1"
+        <LoadingWrapper
+          link="/category/popular"
+          cls="text-primary capitalize text-sm font-bold flex items-center gap-1"
         >
           <span>see all</span>
           <span>
             <GoChevronRight />
           </span>
-        </Link>
+        </LoadingWrapper>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {/* First news card (two rows wide) */}
@@ -68,16 +69,21 @@ export default function PopularSection() {
           />
           <div className="absolute bottom-0 w-full h-1/2 flex flex-col justify-end rounded-b p-5 bg-gradient-to-t from-black/80 to-black/0">
             <div className="flex items-center gap-2">
-              <span className="h-5 w-[57px] flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs bg-orange-700">
-                {newsData[0].tag}
-              </span>
+              <LoadingWrapper link={`/category/${newsData[0].tag}`}>
+                <span className="h-5 w-[57px] flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs bg-orange-700">
+                  {newsData[0].tag}
+                </span>
+              </LoadingWrapper>
               <span className="text-white font-extrabold text-xs ">
                 {newsData[0].date}
               </span>
             </div>
-            <p className="text-[20px] font-extrabold text-white text-pretty mt-2">
+            <LoadingWrapper
+              link={"/news/123"}
+              cls="text-[20px] font-extrabold text-white hover:text-primary text-pretty mt-2"
+            >
               {newsData[0].title}
-            </p>
+            </LoadingWrapper>
           </div>
         </div>
         {/* Remaining news cards */}

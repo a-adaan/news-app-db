@@ -16,7 +16,7 @@ export default function Navbar() {
               height={150}
               className="w-10 h-10"
             />
-            <p className="text-[26px] text-primary font-extrabold">Navbar</p>
+            <p className="text-[26px] text-primary font-extrabold">News Now</p>
           </div>
         </LoadingWrapper>
         <DesktopNav />

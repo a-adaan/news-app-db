@@ -4,6 +4,7 @@ import OtherNews from "./OtherNews";
 import PopularSection from "./PopularSection";
 import RecentSection from "./RecentSection";
 import Slider from "./Slider";
+import VideoSection from "./VideoSection";
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
         <NewsSection />
         <RecentSection />
         <PopularSection />
+        <VideoSection />
         <OtherNews />
       </div>
     </main>

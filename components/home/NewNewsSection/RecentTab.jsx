@@ -1,3 +1,4 @@
+import LoadingWrapper from "@/components/LoaddingWrapper";
 import Image from "next/image";
 
 export default function RecentTab() {
@@ -40,14 +41,14 @@ export default function RecentTab() {
                 height={100}
                 className="w-full h-11 object-cover rounded"
               />
-              <div>
-                <p className="text-[10px] font-extrabold text-black line-clamp-2 overflow-hidden text-pretty">
+              <LoadingWrapper link={"/news/333"}>
+                <p className="text-[10px] font-extrabold text-black hover:text-primary line-clamp-2 overflow-hidden text-pretty">
                   {news.title}
                 </p>
                 <p className="text-[9px] font-extrabold text-[#9D9D9D] text-pretty">
                   {news.date}
                 </p>
-              </div>
+              </LoadingWrapper>
             </div>
           ))}
         </div>

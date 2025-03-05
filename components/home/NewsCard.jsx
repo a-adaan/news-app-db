@@ -23,12 +23,14 @@ export default function NewsCard({ news }) {
         {title}
       </LoadingWrapper>
       <div className="flex">
-        <span
-          className="h-5 w-[57px] flex items-center justify-center  rounded-[56px] text-white font-extrabold text-xs "
-          style={{ backgroundColor: getRandomColor() }}
-        >
-          {tag}
-        </span>
+        <LoadingWrapper link={`/category/${tag}`}>
+          <span
+            className="h-5 w-[57px] flex items-center justify-center  rounded-[56px] text-white font-extrabold text-xs "
+            style={{ backgroundColor: getRandomColor() }}
+          >
+            {tag}
+          </span>
+        </LoadingWrapper>
         <span className="text-black font-extrabold text-xs ml-3">{date}</span>
       </div>
     </div>

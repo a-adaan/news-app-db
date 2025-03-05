@@ -1,6 +1,7 @@
 "use client";
 import { Input, Button, addToast } from "@heroui/react";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
@@ -13,24 +14,33 @@ export default function ResetForm() {
     watch,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
   const pass = watch("password");
   const cPass = watch("confirm-password");
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleC, setIsVisibleC] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
   const toggleVisibilityC = () => {
     setIsVisibleC(!isVisibleC);
   };
+  const pathname = usePathname();
+  useEffect(() => {
+    setIsLoading(false);
+  }, [pathname]);
   const handleRegisterForm = (data) => {
     console.log("🚀 ~ handleContactForm ~ data:", data);
     addToast({
       title: "Success",
-      description: "Sign up successful",
+      description: "Resetting password successful",
       color: "success",
     });
+    setIsLoading(true);
+    router.push("/auth/login");
     reset();
+    // setIsLoading(false);
   };
   return (
     <div className="px-3 md:px-20">
@@ -90,6 +100,7 @@ export default function ResetForm() {
           type="submit"
           radius="sm"
           color="default"
+          isLoading={isLoading}
           className="bg-black text-white w-full h-[41px] text-base font-extrabold "
         >
           Change Password

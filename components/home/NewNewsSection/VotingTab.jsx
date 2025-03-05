@@ -17,11 +17,11 @@ export default function VotingTab() {
     },
     {
       question: "What is your favourite city?",
-      options: ["Buenos Aires", "Sydney", "San Francisco", "London", "Tokyo"],
+      options: ["Buenos Aires", "San Francisco", "London", "Tokyo"],
     },
     {
       question: "What is your favourite country?",
-      options: ["USA", "Canada", "UK", "France", "Japan"],
+      options: ["USA", "Canada", "UK", "Japan"],
     },
   ];
 
@@ -57,9 +57,17 @@ export default function VotingTab() {
                 {data.options.map((option) => (
                   <div
                     key={option}
-                    className="text-black font-semibold text-xs w-full p-2 border-b-1 border-dashed border-b-brdr"
+                    className=" w-full p-2 border-b-1 border-dashed border-b-brdr"
                   >
-                    <Radio value={option}>{option}</Radio>
+                    <Radio
+                      value={option}
+                      classNames={{
+                        wrapper: "border-2 border-black",
+                        label: "text-xs font-[600]",
+                      }}
+                    >
+                      {option}
+                    </Radio>
                   </div>
                 ))}
                 <div className="border-b-1 border-dashed border-b-brdr w-full pb-2">

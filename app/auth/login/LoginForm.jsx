@@ -1,6 +1,7 @@
 "use client";
 import { Input, Button, addToast } from "@heroui/react";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
@@ -13,10 +14,17 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm();
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const pathname = usePathname();
+  useEffect(() => {
+    setIsLoading(false);
+  }, [pathname]);
+  const router = useRouter();
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
   const handleLoginForm = (data) => {
+    setIsLoading(true);
     console.log("🚀 ~ handleContactForm ~ data:", data);
     addToast({
       title: "Success",
@@ -24,6 +32,7 @@ export default function LoginForm() {
       color: "success",
     });
     reset();
+    router.push("/");
   };
   return (
     <div className="px-3 md:px-20 w-full">
@@ -68,6 +77,7 @@ export default function LoginForm() {
           />
         </div>
         <Button
+          isLoading={isLoading}
           type="submit"
           radius="sm"
           color="default"

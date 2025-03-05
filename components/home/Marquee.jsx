@@ -1,13 +1,25 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Marquee() {
+  const [loading, setLoading] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  useEffect(() => {
+    setLoading(false);
+  }, [pathname]);
   const newsTitle = [
     "lorem Ipsum Ipsum Ipsum Ipsum Ipsum Ipsum",
     "TRUMP MUST PAY $83.3M FOR DEFAMING",
     "Marquee/Scrolling Text Animation in Figma",
   ];
+  const handleNewsClick = (link) => {
+    setLoading(true);
+    router.push(link);
+  };
 
   return (
     <div className="h-24 flex items-center flex-shrink-0 flex-grow-0 overflow-hidden">
@@ -22,9 +34,13 @@ export default function Marquee() {
       >
         {newsTitle.map((title, index) => (
           <div key={index} className="flex items-center flex-shrink-0">
-            <p className="text-[30px] text-black font-[900] whitespace-nowrap">
+            <button
+              onClick={() => handleNewsClick("/news/00123")}
+              className="text-[30px] text-black hover:text-primary font-[900] whitespace-nowrap"
+            >
               {title}
-            </p>
+            </button>
+
             <Image
               src={"/common/slider.svg"}
               alt="marquee"
@@ -46,9 +62,12 @@ export default function Marquee() {
       >
         {newsTitle.map((title, index) => (
           <div key={index} className="flex items-center flex-shrink-0">
-            <p className="text-[30px] text-black font-[900] whitespace-nowrap">
+            <button
+              onClick={() => handleNewsClick("/news/00123")}
+              className="text-[30px] text-black hover:text-primary font-[900] whitespace-nowrap"
+            >
               {title}
-            </p>
+            </button>
             <Image
               src={"/common/slider.svg"}
               alt="marquee"
@@ -59,6 +78,11 @@ export default function Marquee() {
           </div>
         ))}
       </motion.div>
+      {loading && (
+        <div className="w-svw h-svh flex justify-center items-center fixed top-0 right-0 bg-black/50 bg-opacity-90 z-[100]">
+          <div className="loader"></div>
+        </div>
+      )}
     </div>
   );
 }

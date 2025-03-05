@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { GoArrowLeft } from "react-icons/go";
 import { GoArrowRight } from "react-icons/go";
+import LoadingWrapper from "../LoaddingWrapper";
 
 export default function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -80,19 +81,24 @@ export default function Slider() {
           />
           <div className="absolute bottom-0 w-full h-1/2 place-content-end p-5 bg-gradient-to-t from-black/80 to-black/0">
             <div className="flex">
-              <span
-                className="h-5 w-[57px] flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs"
-                style={{ backgroundColor: colors[i % colors.length] }}
-              >
-                {slider.tag}
-              </span>
+              <LoadingWrapper link={`/category/${slider.tag}`}>
+                <span
+                  className="h-5 w-[57px] flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs"
+                  style={{ backgroundColor: colors[i % colors.length] }}
+                >
+                  {slider.tag}
+                </span>
+              </LoadingWrapper>
               <span className="text-white font-extrabold text-xs ml-3">
                 {slider.date}
               </span>
             </div>
-            <p className="text-[20px] font-extrabold text-white text-pretty mt-2">
+            <LoadingWrapper
+              link={"/news/1013"}
+              cls="text-[20px] font-extrabold text-white hover:text-primary text-pretty mt-2"
+            >
               {slider.title}
-            </p>
+            </LoadingWrapper>
           </div>
         </div>
       ))}

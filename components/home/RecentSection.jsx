@@ -1,6 +1,7 @@
 import Link from "next/link";
 import NewsCard from "./NewsCard";
 import { GoChevronRight } from "react-icons/go";
+import LoadingWrapper from "../LoaddingWrapper";
 
 export default function RecentSection() {
   const newsData = [
@@ -45,15 +46,15 @@ export default function RecentSection() {
     <section className=" h-auto my-14">
       <div className="flex justify-between items-center">
         <p className="text-black text-[20px] my-4 font-[900]">Recent News</p>
-        <Link
-          href="/"
-          className="text-primary capitalize text-sm font-bold flex items-center gap-1"
+        <LoadingWrapper
+          link="/category/recent"
+          cls="text-primary capitalize text-sm font-bold flex items-center gap-1"
         >
           <span>see all</span>
           <span>
             <GoChevronRight />
           </span>
-        </Link>
+        </LoadingWrapper>
       </div>
       <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-x-2 gap-y-3 xl:gap-x-5 xl:gap-y-6">
         {newsData.map((news, i) => (

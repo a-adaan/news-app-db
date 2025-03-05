@@ -1,24 +1,36 @@
 "use client";
 import { Button, addToast, InputOtp } from "@heroui/react";
 import { useForm } from "react-hook-form";
+import ResendOtp from "./ResendOtp";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function OTPform() {
   const {
     handleSubmit,
     reset,
+    register,
     formState: { errors },
-    control,
   } = useForm();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOTPSubmit = (data) => {
+    setIsLoading(true);
     console.log("🚀 ~ handleOTPSubmit ~ data:", data);
     addToast({
       title: "Success",
       description: "OTP verified successfully",
       color: "success",
     });
+    router.push("/auth/reset-password");
     reset();
+    // setIsLoading(false);
   };
+  const pathname = usePathname();
+  useEffect(() => {
+    setIsLoading(false);
+  }, [pathname]);
 
   return (
     <div className="px-3 md:px-20 w-full mt-[56px]">
@@ -29,14 +41,24 @@ export default function OTPform() {
         <InputOtp
           length={4}
           variant="underlined"
-          control={control}
-          name="otp"
-          rules={{ required: "OTP is required" }}
+          classNames={{
+            segmentWrapper: "gap-x-10 ",
+            segment: [
+              "data-[active=true]:border-primary",
+              "data-[active=true]:text-primary",
+              "data-[has-value=true]:border-primary",
+              "data-[has-value=true]:text-primary",
+            ],
+          }}
+          {...register("otp", { required: true })}
+          isInvalid={errors.otp}
+          errorMessage={() => (
+            <span className="text-sm font-semibold">OTP is required!</span>
+          )}
         />
-        {errors.otp && (
-          <p className="text-red-500 text-sm">{errors.otp.message}</p>
-        )}
+        <ResendOtp />
         <Button
+          isLoading={isLoading}
           type="submit"
           radius="sm"
           color="default"
