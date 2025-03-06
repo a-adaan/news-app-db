@@ -35,7 +35,7 @@ export default function Marquee() {
         {newsTitle.map((title, index) => (
           <div key={index} className="flex items-center flex-shrink-0">
             <button
-              onClick={() => handleNewsClick("/news/00123")}
+              onClick={() => handleNewsClick("/news/10")}
               className="text-[30px] text-black hover:text-primary font-[900] whitespace-nowrap"
             >
               {title}
@@ -63,7 +63,7 @@ export default function Marquee() {
         {newsTitle.map((title, index) => (
           <div key={index} className="flex items-center flex-shrink-0">
             <button
-              onClick={() => handleNewsClick("/news/00123")}
+              onClick={() => handleNewsClick("/news/10")}
               className="text-[30px] text-black hover:text-primary font-[900] whitespace-nowrap"
             >
               {title}

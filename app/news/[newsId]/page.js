@@ -1,9 +1,10 @@
 import NewsDetailsPage from "@/components/newsDetails/NewsDetailsPage";
 
-export default function NewsDetails() {
+export default async function NewsDetails({ params }) {
+  const { newsId } = await params;
   return (
     <main className="container">
-      <NewsDetailsPage />
+      <NewsDetailsPage id={newsId} />
     </main>
   );
 }

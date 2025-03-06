@@ -1,7 +1,7 @@
 "use client";
 
 export default function FilterTab({ selectedNews, setSelectedNews }) {
-  console.log("🚀 ~ FilterTab ~ selectedNews:", selectedNews);
+  // console.log("🚀 ~ FilterTab ~ selectedNews:", selectedNews);
   const filter = ["Travel", "Tech", "World", "Politics", "Sports"];
   return (
     <div className="mb-6">

@@ -79,7 +79,7 @@ export default function PopularSection() {
               </span>
             </div>
             <LoadingWrapper
-              link={"/news/123"}
+              link={"/news/12"}
               cls="text-[20px] font-extrabold text-white hover:text-primary text-pretty mt-2"
             >
               {newsData[0].title}

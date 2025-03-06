@@ -17,7 +17,7 @@ export default function NewsCard({ news }) {
         className="w-full h-[157px] object-cover rounded"
       />
       <LoadingWrapper
-        link={"/news/123"}
+        link={"/news/12"}
         cls="text-[14px] font-extrabold text-black text-pretty my-[10px] hover:text-primary inline-block"
       >
         {title}

@@ -41,7 +41,7 @@ export default function RecentTab() {
                 height={100}
                 className="w-full h-11 object-cover rounded"
               />
-              <LoadingWrapper link={"/news/333"}>
+              <LoadingWrapper link={"/news/12"}>
                 <p className="text-[10px] font-extrabold text-black hover:text-primary line-clamp-2 overflow-hidden text-pretty">
                   {news.title}
                 </p>

@@ -1,4 +1,5 @@
 "use client";
+import { registerUser } from "@/app/actions/auth/register";
 import { Input, Button, addToast } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,32 +16,57 @@ export default function RegisterForm() {
     formState: { errors },
   } = useForm();
   const pass = watch("password");
-  const cPass = watch("confirm-password");
+  const cPass = watch("password_confirmation");
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleC, setIsVisibleC] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  /////////////////////////////////////////////////////////////////////////
   const pathname = usePathname();
   const router = useRouter();
   useEffect(() => {
     setIsLoading(false);
   }, [pathname]);
+  ////////////////////////////////////////////////////////////////////////
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
   const toggleVisibilityC = () => {
     setIsVisibleC(!isVisibleC);
   };
-  const handleRegisterForm = (data) => {
+  /////////////////////////////////////////////////////////////////////////
+  const handleRegisterForm = async (data) => {
     setIsLoading(true);
-    console.log("🚀 ~ handleContactForm ~ data:", data);
-    addToast({
-      title: "Success",
-      description: "Sign up successful",
-      color: "success",
-    });
-    reset();
-    router.push("/auth/login");
+    // console.log("🚀 ~ handleContactForm ~ data:", data);
+    try {
+      reset();
+      const response = await registerUser(data);
+      console.log("🚀 ~ handleRegisterForm ~ response:", response);
+      if (response?.status === "success") {
+        addToast({
+          title: "Success",
+          description: response.message,
+          color: "success",
+        });
+        router.push("/auth/login");
+      } else {
+        addToast({
+          title: "Error",
+          description: response.message,
+          color: "Danger",
+        });
+        setIsLoading(false);
+      }
+    } catch (error) {
+      addToast({
+        title: "Error",
+        description: error.message,
+        color: "Danger",
+      });
+      setIsLoading(false);
+      console.log("🚀 ~ handleRegisterForm ~ error:", error.message);
+    }
   };
+  ////////////////////////////////////////////////////////////////////////////
   return (
     <div className="px-3 md:px-20">
       <form
@@ -73,14 +99,24 @@ export default function RegisterForm() {
             }
             errorMessage={() => (
               <span className="text-sm font-semibold">
-                Password field is required!
+                {errors.password?.message}
               </span>
             )}
             isInvalid={errors.password}
             label="Password"
             type={isVisible ? "text" : "password"}
             variant="bordered"
-            {...register("password", { required: true })}
+            {...register("password", {
+              required: true,
+              minLength: {
+                value: 4,
+                message: "Password must be at least 4 characters",
+              },
+              maxLength: {
+                value: 10,
+                message: "Password must be less than 10 characters",
+              },
+            })}
           />
         </div>
         <div className="group">
@@ -104,7 +140,7 @@ export default function RegisterForm() {
             label="Confirm Password"
             type={isVisibleC ? "text" : "password"}
             variant="bordered"
-            {...register("confirm-password", { required: true })}
+            {...register("password_confirmation", { required: true })}
           />
         </div>
         <Button
