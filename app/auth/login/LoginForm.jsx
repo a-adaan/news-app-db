@@ -1,4 +1,5 @@
 "use client";
+import { loginUser } from "@/app/actions/auth/register";
 import { Input, Button, addToast } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -23,16 +24,30 @@ export default function LoginForm() {
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
-  const handleLoginForm = (data) => {
+  const handleLoginForm = async (data) => {
     setIsLoading(true);
-    console.log("🚀 ~ handleContactForm ~ data:", data);
-    addToast({
-      title: "Success",
-      description: "Logged in successfully",
-      color: "success",
-    });
+    // console.log("🚀 ~ handleContactForm ~ data:", data);
+    const resp = await loginUser(data);
+    // console.log("🚀 ~ handleLoginForm ~ resp:", resp);
+    if (resp?.status === 200) {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("userId", JSON.stringify(resp?.user?.id));
+      }
+      addToast({
+        title: "Success",
+        description: "Logged in successfully",
+        color: "success",
+      });
+      router.push("/");
+    } else {
+      addToast({
+        title: "Error",
+        description: resp?.message,
+        color: "danger",
+      });
+    }
     reset();
-    router.push("/");
+    setIsLoading(false);
   };
   return (
     <div className="px-3 md:px-20 w-full">

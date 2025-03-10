@@ -1,3 +1,4 @@
+"use server";
 import axios from "axios";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
@@ -26,7 +27,7 @@ export const getSliderNews = async () => {
   }
 };
 
-// get slider news
+// get slider category news
 export const getSliderCategoryNews = async (id) => {
   try {
     const res = await axios.get(`${url}/slider/category/${id}`);
@@ -34,7 +35,10 @@ export const getSliderCategoryNews = async (id) => {
     // console.log("🚀 ~ getSliderNews ~ res:", res);
     return res.data;
   } catch (error) {
-    console.log("🚀 ~ getNews ~ error:", error);
+    console.log(
+      "🚀 ~ getNews ~ error:",
+      error.response?.data || error.message || error
+    );
   }
 };
 
@@ -58,11 +62,12 @@ export const getCategoryNews = async (id) => {
     // console.log("🚀 ~ getCategoryNews ~ res:", res);
     return res.data;
   } catch (error) {
-    console.log("🚀 ~ getNews ~ error:", error);
+    // console.log("🚀 ~ get category News ~ error:", error);
+    return error.response?.data || error.message || error;
   }
 };
 
-// get category news
+// get popular news
 export const getPopularNews = async () => {
   try {
     const res = await axios.get(`${url}/popular-news`);
@@ -74,7 +79,7 @@ export const getPopularNews = async () => {
   }
 };
 
-// get category news
+// get single news
 export const getSingleNews = async (id) => {
   try {
     const res = await axios.get(`${url}/news/${id}`);

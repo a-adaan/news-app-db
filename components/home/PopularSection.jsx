@@ -1,48 +1,13 @@
-import Link from "next/link";
 import NewsCard from "./NewsCard";
 import { GoChevronRight } from "react-icons/go";
 import Image from "next/image";
 import LoadingWrapper from "../LoaddingWrapper";
+import { getPopularNews } from "@/app/actions/common";
 
-export default function PopularSection() {
-  const newsData = [
-    {
-      img: "/news/news01.jpg",
-      title: "South Korea's President Yoon banned from foreign travel",
-      tag: "world",
-      date: "aug 1,2017",
-    },
-    {
-      img: "/news/news02.jpg",
-      title: "AI technology's impact on the future of work",
-      tag: "tech",
-      date: "sep 2,2017",
-    },
-    {
-      img: "/news/news03.jpg",
-      title: "India's Prime Minister Narendra Modi to visit China",
-      tag: "world",
-      date: "oct 3,2017",
-    },
-    {
-      img: "/news/news04.jpg",
-      title: "Apple announces new iPhones and iPads",
-      tag: "tech",
-      date: "nov 4,2017",
-    },
-    {
-      img: "/news/news05.jpg",
-      title: "Russia invades Ukraine, leading to mass protests",
-      tag: "world",
-      date: "dec 5,2017",
-    },
-    {
-      img: "/news/news06.svg",
-      title: "Facebook reveals new privacy policy",
-      tag: "tech",
-      date: "jan 6,2018",
-    },
-  ];
+export default async function PopularSection() {
+  const popularNews = await getPopularNews();
+  // console.log("🚀 ~ PopularSection ~ popularNews:", popularNews);
+
   return (
     <section className="h-auto my-14">
       <div className="flex justify-between items-center">
@@ -61,7 +26,7 @@ export default function PopularSection() {
         {/* First news card (two rows wide) */}
         <div className="relative md:col-span-2 md:row-span-2 h-[400px] md:h-full rounded">
           <Image
-            src={newsData[0].img}
+            src={`${process.env.NEXT_PUBLIC_IMG_URL}${popularNews.data[0].featured_image}`}
             alt="featured news"
             layout="fill"
             objectFit="cover"
@@ -69,25 +34,27 @@ export default function PopularSection() {
           />
           <div className="absolute bottom-0 w-full h-1/2 flex flex-col justify-end rounded-b p-5 bg-gradient-to-t from-black/80 to-black/0">
             <div className="flex items-center gap-2">
-              <LoadingWrapper link={`/category/${newsData[0].tag}`}>
+              <LoadingWrapper
+                link={`/category/id=${popularNews?.data[0].category_id}&name=${popularNews?.data[0].category_name}`}
+              >
                 <span className="h-5 w-[57px] flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs bg-orange-700">
-                  {newsData[0].tag}
+                  {popularNews?.data[0].category_name}
                 </span>
               </LoadingWrapper>
               <span className="text-white font-extrabold text-xs ">
-                {newsData[0].date}
+                {popularNews?.data[0].updated_at.split(" ")[0]}
               </span>
             </div>
             <LoadingWrapper
-              link={"/news/12"}
+              link={`/news/${popularNews?.data[0].id}`}
               cls="text-[20px] font-extrabold text-white hover:text-primary text-pretty mt-2"
             >
-              {newsData[0].title}
+              {popularNews?.data[0].title}
             </LoadingWrapper>
           </div>
         </div>
         {/* Remaining news cards */}
-        {newsData.slice(1).map((news, i) => (
+        {popularNews?.data.slice(1).map((news, i) => (
           <NewsCard key={i} news={news} />
         ))}
       </div>

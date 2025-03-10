@@ -49,7 +49,9 @@ export default function Slider({ sliderData }) {
           />
           <div className="absolute bottom-0 w-full h-1/2 place-content-end p-5 bg-gradient-to-t from-black/80 to-black/0">
             <div className="flex mb-2">
-              <LoadingWrapper link={`/category/${slider?.category_id}`}>
+              <LoadingWrapper
+                link={`/category/id=${slider?.category_id}&name=${slider?.category_name}`}
+              >
                 <span
                   className="h-5 w-[57px] flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs"
                   style={{ backgroundColor: colors[i % colors.length] }}

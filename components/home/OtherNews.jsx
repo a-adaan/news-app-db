@@ -2,8 +2,11 @@ import Link from "next/link";
 import NewsCard from "./NewsCard";
 import { GoChevronRight } from "react-icons/go";
 import LoadingWrapper from "../LoaddingWrapper";
+import { getNews } from "@/app/actions/common";
 
-export default function OtherNews() {
+export default async function OtherNews() {
+  const otherNews = await getNews();
+  // console.log("🚀 ~ OtherNews ~ otherNews:", otherNews);
   const newsData = [
     {
       img: "/news/news01.jpg",
@@ -57,8 +60,8 @@ export default function OtherNews() {
         </LoadingWrapper>
       </div>
       <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-x-2 gap-y-3 xl:gap-x-5 xl:gap-y-6">
-        {newsData.map((news, i) => (
-          <NewsCard key={i} news={news} />
+        {otherNews.data.map((news) => (
+          <NewsCard key={news?.id} news={news} />
         ))}
       </div>
     </section>

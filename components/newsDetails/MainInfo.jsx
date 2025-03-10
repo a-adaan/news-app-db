@@ -18,7 +18,9 @@ export default function MainInfo({ news }) {
         </span>
       </LoadingWrapper>
       <div className="flex items-center justify-between lg:mt-6 ">
-        <LoadingWrapper link={`/category/${news?.news?.category_id}`}>
+        <LoadingWrapper
+          link={`/category/id=${news?.news?.category_id}&name=${news?.news?.category_name}`}
+        >
           <span className="hidden h-5 w-[57px] lg:flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs bg-[#6E74FF]">
             {news?.news?.category_name}
           </span>
@@ -58,7 +60,7 @@ export default function MainInfo({ news }) {
         <div className="w-full h-[1px] bg-brdr mt-8 mb-6"></div>
         <ShareBtn />
       </div>
-      <CmtSec />
+      <CmtSec cmtData={news?.comments} />
     </div>
   );
 }

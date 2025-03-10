@@ -5,6 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import { Accordion, AccordionItem } from "@heroui/react";
 import LoadingWrapper from "@/components/LoaddingWrapper";
 import { usePathname } from "next/navigation";
+import LogInOutBtn from "./LogInOutBtn";
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -49,7 +50,7 @@ export default function MobileNav() {
             <LoadingWrapper link="/category">Category</LoadingWrapper>
           </li>
           <li className="cursor-pointer">
-            <LoadingWrapper link="/auth/login">Login</LoadingWrapper>
+            <LogInOutBtn />
           </li>
           <li className="cursor-pointer pr-5">
             <Accordion className="p-0">

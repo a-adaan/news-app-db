@@ -45,7 +45,7 @@ export default async function CategoryPage() {
             {categoryData.map((category) => (
               <LoadingWrapper
                 key={category?.id}
-                link={`/category/${category?.id}`}
+                link={`/category/id=${category?.id}&name=${category?.name}`}
                 cls="cursor-pointer"
               >
                 <div className="w-full md:max-w-[220px] lg:max-w-[240px] h-auto bg-transparent">
