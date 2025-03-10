@@ -4,6 +4,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { IoLogoYoutube } from "react-icons/io";
+import LoadingWrapper from "../LoaddingWrapper";
 export default function Footer() {
   return (
     <>
@@ -69,19 +70,22 @@ export default function Footer() {
             <h3 className="font-bold text-base capitalize mb-6">Quick links</h3>
             <ul className="space-y-3 text-footerTxt text-base">
               <li>
-                <Link href="/contact" className="hover:text-gray-300">
+                <LoadingWrapper link="/contact" cls="hover:text-gray-300">
                   Contact Us
-                </Link>
+                </LoadingWrapper>
               </li>
               <li>
-                <Link href="/about" className="hover:text-gray-300">
-                  About Us
-                </Link>
+                <LoadingWrapper link="/privacy" cls="hover:text-gray-300">
+                  Privacy
+                </LoadingWrapper>
               </li>
               <li>
-                <Link href="/" className="hover:text-gray-300">
-                  FAQ
-                </Link>
+                <LoadingWrapper
+                  link="/terms&conditions"
+                  cls="hover:text-gray-300"
+                >
+                  Terms and Conditions
+                </LoadingWrapper>
               </li>
             </ul>
           </div>

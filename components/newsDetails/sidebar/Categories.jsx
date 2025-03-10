@@ -11,7 +11,7 @@ export default async function Categories() {
         {categories.map((category) => (
           <LoadingWrapper
             key={category?.id}
-            link={`/category/${category?.id}`}
+            link={`/category/id=${category?.id}&name=${category?.name}`}
             cls="text-black hover:text-primary border-y-1 border-y-brdr border-dashed text-xs py-3 px-2 font-semibold"
           >
             {category?.name}

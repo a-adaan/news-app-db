@@ -10,7 +10,10 @@ export default async function SideBar({ tags }) {
     <div className="w-full max-h-max rounded border border-brdr mt-5 md:mt-0 ">
       <Search />
       <Categories />
-      <RecentTab tabName={"Releted News"} data={recent.data.slice(0, 3)} />
+      <RecentTab
+        tabName={"Releted News"}
+        data={recent?.data.slice(0, 3) || []}
+      />
       <Tags tags={tags} />
     </div>
   );

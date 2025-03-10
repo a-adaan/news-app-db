@@ -12,7 +12,9 @@ export default function MainInfo({ news }) {
       <p className="text-black text-[28px] font-[900] leading-[37px]">
         {news?.news?.title}
       </p>
-      <LoadingWrapper link={`/category/${news?.news?.category_id}`}>
+      <LoadingWrapper
+        link={`/category/id=${news?.news?.category_id}&name=${news?.news?.category_name}`}
+      >
         <span className="lg:hidden h-5 w-[57px] flex items-center my-3 justify-center rounded-[56px] text-white font-extrabold text-xs bg-[#6E74FF]">
           {news?.news?.category_name}
         </span>
