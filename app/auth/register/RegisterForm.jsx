@@ -52,7 +52,7 @@ export default function RegisterForm() {
         addToast({
           title: "Error",
           description: response.message,
-          color: "Danger",
+          color: "danger",
         });
         setIsLoading(false);
       }
@@ -60,7 +60,7 @@ export default function RegisterForm() {
       addToast({
         title: "Error",
         description: error.message,
-        color: "Danger",
+        color: "danger",
       });
       setIsLoading(false);
       console.log("🚀 ~ handleRegisterForm ~ error:", error.message);

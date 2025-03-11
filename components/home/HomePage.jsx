@@ -13,7 +13,7 @@ export default async function HomePage() {
   return (
     <main>
       <Marquee />
-      <Slider sliderData={sliderData.data} />
+      <Slider sliderData={sliderData?.data} />
       <div className="container">
         <NewsSection />
         <RecentSection />

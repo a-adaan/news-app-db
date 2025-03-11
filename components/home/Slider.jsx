@@ -34,7 +34,7 @@ export default function Slider({ sliderData }) {
   };
   return (
     <div className="w-full h-[475px] flex relative overflow-hidden">
-      {sliderData.map((slider, i) => (
+      {sliderData?.map((slider, i) => (
         <div
           key={i}
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}

@@ -1,7 +1,7 @@
 import PageDropDown from "./PageDropDown";
-import { CiSearch } from "react-icons/ci";
 import LoadingWrapper from "@/components/LoaddingWrapper";
 import LogInOutBtn from "./LogInOutBtn";
+import SearchPop from "./SearchPop";
 
 export default function DesktopNav() {
   return (
@@ -28,9 +28,7 @@ export default function DesktopNav() {
         <LogInOutBtn />
       </li>
       <li className="cursor-pointer">
-        <LoadingWrapper link="/" cls="text-white text-sm">
-          <CiSearch size={20} />
-        </LoadingWrapper>
+        <SearchPop />
       </li>
     </ul>
   );

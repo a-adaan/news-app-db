@@ -10,7 +10,7 @@ export default function FilterTab({
     <div className="mb-6">
       <p className="text-xs font-extrabold text-black mb-[6px]">What's New</p>
       <div className="flex flex-col lg:flex-row lg:items-center items-start justify-between">
-        <p className="text-black text-[32px] font-[900]">
+        <p className="text-black text-[28px] lg:text-[32px] font-[900]">
           {selectedNews?.name}
         </p>
         <div>
@@ -19,9 +19,9 @@ export default function FilterTab({
               key={f?.id}
               className={`${
                 Number(selectedNews?.id) === Number(f?.id)
-                  ? " text-primary underline underline-offset-2"
-                  : " text-black"
-              } pr-4 lg:px-4 py-2 text-base font-[650] `}
+                  ? " text-primary underline underline-offset-2 font-extrabold"
+                  : " text-black font-semibold"
+              } pr-4 lg:px-4 py-2 text-base  `}
               onClick={() => setSelectedNews(f)}
             >
               {f?.name}

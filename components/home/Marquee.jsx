@@ -22,7 +22,7 @@ export default function Marquee() {
   };
 
   return (
-    <div className="h-24 flex items-center flex-shrink-0 flex-grow-0 overflow-hidden">
+    <div className="h-16 md:h-24 flex items-center flex-shrink-0 flex-grow-0 overflow-hidden">
       <motion.div
         className="flex items-center flex-shrink-0 flex-grow-0 "
         animate={{ x: ["0%", "-100%"] }}

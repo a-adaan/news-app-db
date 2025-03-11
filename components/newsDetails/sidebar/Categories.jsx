@@ -8,7 +8,7 @@ export default async function Categories() {
     <div className="p-2">
       <p className="text-black text-base font-extrabold">Categories</p>
       <div className="flex flex-col mt-2">
-        {categories.map((category) => (
+        {categories?.map((category) => (
           <LoadingWrapper
             key={category?.id}
             link={`/category/id=${category?.id}&name=${category?.name}`}

@@ -1,5 +1,5 @@
 "use client";
-import { logoutUser } from "@/app/actions/auth/register";
+import { logoutUser } from "@/app/actions/auth/Login";
 import Loading from "@/app/loading";
 import LoadingWrapper from "@/components/LoaddingWrapper";
 import { addToast } from "@heroui/react";

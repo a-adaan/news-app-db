@@ -9,6 +9,7 @@ import {
   getCategoryNews,
   getRecentNews,
 } from "@/app/actions/common";
+import CardSkeleton from "@/components/CardSkeleton";
 
 export default function NewsSection() {
   const [selectedNews, setSelectedNews] = useState();
@@ -24,7 +25,7 @@ export default function NewsSection() {
       );
       const recent = await getRecentNews();
       // console.log("🚀 ~ allcategories ~ recent:", recent.data.slice(0, 3));
-      setRecentNews(recent.data.slice(0, 3));
+      setRecentNews(recent?.data.slice(0, 3));
       // console.log(
       //   "🚀 ~ useEffect ~ categories:",
       //   categories.length > 4 ? categories.slice(0, 4) : categories
@@ -50,10 +51,13 @@ export default function NewsSection() {
           filterOptions={filterOptions}
         />
         <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-x-2 gap-y-3 xl:gap-x-5 xl:gap-y-6">
-          {newNewsData?.data?.data.map((news) => (
-            // console.log("��� ~ NewsSection ~ news:", news),
-            <NewsCard key={news?.id} news={news} />
-          ))}
+          {newNewsData?.data?.data
+            ? newNewsData?.data?.data.map((news) => (
+                <NewsCard key={news?.id} news={news} />
+              ))
+            : Array(3)
+                .fill()
+                .map((_, index) => <CardSkeleton key={`skeleton-${index}`} />)}
         </div>
       </div>
       <div className="w-full rounded border overflow-hidden border-brdr mt-5 md:mt-0 ">

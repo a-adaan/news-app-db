@@ -1,5 +1,5 @@
 "use client";
-import { loginUser } from "@/app/actions/auth/register";
+import { loginUser } from "@/app/actions/auth/Login";
 import { Input, Button, addToast } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

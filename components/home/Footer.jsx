@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
@@ -26,9 +25,11 @@ export default function Footer() {
                 News Now
               </p>
             </div>
-            <p>Customer Support :</p>
+            <p className="text-footerTxt text-base font-normal">
+              Customer Support :
+            </p>
             <h3 className="font-bold text-base mb-6"> (629) 555-0129</h3>
-            <address className="not-italic space-y-0 text-footerTxt text-base">
+            <address className="not-italic space-y-0 text-footerTxt text-base font-normal">
               <p>
                 4517 Washington Ave. Manchester,
                 <br /> Kentucky 39495
@@ -42,33 +43,30 @@ export default function Footer() {
             <h3 className="font-bold capitalize text-base mb-6">
               Top Category
             </h3>
-            <ul className="space-y-3 text-footerTxt text-base">
+            <ul className="space-y-3 text-footerTxt text-base font-medium">
               <li>
-                <Link href="/" className="hover:text-gray-300">
+                <LoadingWrapper link="/recent-news" cls="hover:text-gray-300">
                   Recent News
-                </Link>
+                </LoadingWrapper>
               </li>
               <li>
-                <Link href="/" className="hover:text-gray-300">
-                  Sports
-                </Link>
+                <LoadingWrapper link="/popular-news" cls="hover:text-gray-300">
+                  Popular News
+                </LoadingWrapper>
               </li>
               <li>
-                <Link href="/" className="hover:text-gray-300">
-                  Entertainment
-                </Link>
-              </li>
-              <li>
-                <Link href="/" className="hover:text-gray-300">
-                  Other News
-                </Link>
+                <LoadingWrapper link="/latest-news" cls="hover:text-gray-300">
+                  Latest News
+                </LoadingWrapper>
               </li>
             </ul>
           </div>
-          {/* Quick links */}
+          {/* Quick LoadingWrappers */}
           <div>
-            <h3 className="font-bold text-base capitalize mb-6">Quick links</h3>
-            <ul className="space-y-3 text-footerTxt text-base">
+            <h3 className="font-bold text-base capitalize mb-6">
+              Quick LoadingWrappers
+            </h3>
+            <ul className="space-y-3 text-footerTxt text-base font-medium">
               <li>
                 <LoadingWrapper link="/contact" cls="hover:text-gray-300">
                   Contact Us
@@ -103,10 +101,12 @@ export default function Footer() {
                   className="h-[30px] w-[30px]"
                 />
                 <div>
-                  <p className="text-footerTxt text-start text-[11px]">
+                  <p className="text-footerTxt text-start text-[11px] font-medium">
                     Get it now
                   </p>
-                  <p className="text-white text-start text-sm">Google Play</p>
+                  <p className="text-white text-start text-sm font-bold">
+                    Google Play
+                  </p>
                 </div>
               </div>
               <div className="h-[53px] w-[176px] flex items-center justify-center gap-4 rounded-lg bg-[#333333]">
@@ -118,10 +118,12 @@ export default function Footer() {
                   className="h-[30px] w-[30px]"
                 />
                 <div>
-                  <p className="text-footerTxt text-start text-[11px]">
+                  <p className="text-footerTxt text-start text-[11px] font-medium">
                     Get it now
                   </p>
-                  <p className="text-white text-start text-sm">App Store</p>
+                  <p className="text-white text-start text-sm font-bold">
+                    App Store
+                  </p>
                 </div>
               </div>
               <div className="flex items-center text-2xl gap-[30px] py-3">
@@ -136,7 +138,7 @@ export default function Footer() {
       </footer>
       <footer className="bg-[#333333] h-[54px] flex">
         <p className="text-xs text-center text-white m-auto">
-          newsnow &copy; 2024. Design by D-bug Station Limited
+          newsnow &copy; 2025. Design by D-bug Station Limited
         </p>
       </footer>
     </>

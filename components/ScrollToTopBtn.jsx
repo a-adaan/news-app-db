@@ -8,7 +8,7 @@ export default function ScrollToTopBtn() {
   };
   const toggleVisibility = () => {
     if (window.scrollY > 300) {
-      console.log("🚀 ~ toggleVisibility ~ window.scrollY:", window.scrollY);
+      // console.log("🚀 ~ toggleVisibility ~ window.scrollY:", window.scrollY);
       setVisible(true);
     } else {
       setVisible(false);
