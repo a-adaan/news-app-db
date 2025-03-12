@@ -26,3 +26,15 @@ export const getTerms = async () => {
     console.log("🚀 ~ get-terms ~ error:", error);
   }
 };
+
+// get ads
+export const getAd = async () => {
+  try {
+    const res = await axios.get(`${url}/ad`);
+
+    // console.log("🚀 ~ get-terms ~ res:", res);
+    return res.data;
+  } catch (error) {
+    console.log("🚀 ~ get-terms ~ error:", error);
+  }
+};

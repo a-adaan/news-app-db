@@ -4,17 +4,9 @@ import axios from "axios";
 const url = process.env.NEXT_PUBLIC_API_URL;
 
 //register user
-export const registerUser = async (data) => {
+export const otpEmail = async (data) => {
   try {
-    const res = await axios.post(`${url}/auth/register`, data, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-    // console.log("🚀 ~ registerUser ~ res:", res);
-
-    return res.data;
+    return;
   } catch (error) {
     console.log(
       "🚀 ~ registerUser ~ error:",

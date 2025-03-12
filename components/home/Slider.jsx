@@ -23,14 +23,14 @@ export default function Slider({ sliderData }) {
   };
   const prevSlideS = () => {
     setCurrentSlide(
-      currentSlide > 0 ? currentSlide - 1 : SliderData.length - 1
+      currentSlide > 0 ? currentSlide - 1 : sliderData.length - 1
     );
   };
   const nextSlideS = () => {
     setCurrentSlide(
       currentSlide < sliderData.length - 1 ? currentSlide + 1 : 0
     );
-    console.log("Slider : ", currentSlide);
+    // console.log("Slider : ", currentSlide);
   };
   return (
     <div className="w-full h-[475px] flex relative overflow-hidden">

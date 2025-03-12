@@ -102,3 +102,17 @@ export const getAllCategories = async () => {
     console.log("🚀 ~ getNews ~ error:", error);
   }
 };
+
+// get search result
+export const getSearchResult = async (query) => {
+  // console.log("🚀 ~ getSearchResult ~ query:", query);
+  try {
+    const res = await axios.post(`${url}/search`, { query: query });
+
+    // console.log("🚀 ~ getSingleNews ~ res:", res);
+    return res.data?.data;
+  } catch (error) {
+    // console.log("🚀 ~ getNews ~ error:", error);
+    return error.response?.data || error.message || error;
+  }
+};

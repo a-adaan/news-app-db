@@ -9,14 +9,14 @@ export default async function SingleCategoryPage({ params }) {
   const id = searchParams.get("id");
   const name = searchParams.get("name");
 
-  console.log("🚀 ~ SingleCategoryPage ~ id:", id);
-  console.log("🚀 ~ SingleCategoryPage ~ name:", name);
+  // console.log("🚀 ~ SingleCategoryPage ~ id:", id);
+  // console.log("🚀 ~ SingleCategoryPage ~ name:", name);
 
   const categories = await getCategoryNews(id);
-  console.log(
-    "🚀 ~ SingleCategoryPage ~ categories:",
-    categories?.data?.data.length
-  );
+  // console.log(
+  //   "🚀 ~ SingleCategoryPage ~ categories:",
+  //   categories?.data?.data.length
+  // );
 
   return (
     <main className="container">
