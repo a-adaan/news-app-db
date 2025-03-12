@@ -71,7 +71,7 @@ export default function RegisterForm() {
     <div className="px-3 md:px-20">
       <form
         onSubmit={handleSubmit(handleRegisterForm)}
-        className="flex flex-col justify-center space-y-5"
+        className="flex flex-col justify-center"
       >
         <Input
           errorMessage={() => (
@@ -85,7 +85,7 @@ export default function RegisterForm() {
           variant="bordered"
           {...register("email", { required: true })}
         />
-        <div className="group">
+        <div className="group my-5">
           <Input
             endContent={
               <button
@@ -119,7 +119,7 @@ export default function RegisterForm() {
             })}
           />
         </div>
-        <div className="group">
+        <div className="group mb-16">
           <Input
             endContent={
               <button

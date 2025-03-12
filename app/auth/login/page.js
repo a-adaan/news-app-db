@@ -3,12 +3,12 @@ import LoginForm from "./LoginForm";
 
 export default function page() {
   return (
-    <main className="container flex flex-col my-12 items-center w-full">
+    <main className="container flex flex-col my-12 items-center justify-center w-full h-[60vh] lg:h-[80vh]">
       <p className="text-black text-[32px] font-[900] text-center mb-10">
         Log In
       </p>
       <LoginForm />
-      <div className="flex flex-col items-center mt-10 gap-3">
+      <div className="flex flex-col items-center mt-12 gap-3">
         <LoadingWrapper
           link={"/auth/verify-email"}
           cls="text-base font-[800] text-primary"

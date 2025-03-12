@@ -2,7 +2,7 @@ import ResetForm from "./ResetForm";
 
 export default function ResetPassPage() {
   return (
-    <main className="container flex flex-col my-12">
+    <main className="container flex flex-col justify-center my-12 h-[60vh] lg:h-[80vh]">
       <p className="text-black text-[32px] font-[900] text-center mb-10">
         Reset Password
       </p>

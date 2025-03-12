@@ -2,11 +2,11 @@ import EmailForm from "./EmailForm";
 
 export default function EmailPage() {
   return (
-    <main className="container flex flex-col my-12">
-      <p className="text-black text-[32px] font-[900] text-center mb-3">
+    <main className="container flex flex-col justify-center my-12 h-[60vh] lg:h-[80vh]">
+      <p className="text-black text-[32px] font-[900] text-center mb-6">
         Enter Your Email
       </p>
-      <p className="text-black text-[16px] font-[800] text-center mb-10">
+      <p className="text-black text-[16px] font-[800] text-center mb-16">
         We will send you OTP to your email
       </p>
       <EmailForm />

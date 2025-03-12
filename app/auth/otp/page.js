@@ -3,7 +3,7 @@ import OTPform from "./OTPform";
 
 export default function OTPpage() {
   return (
-    <main className="container flex flex-col items-center my-12">
+    <main className="container flex flex-col items-center justify-center my-12 h-[60vh] lg:h-[80vh]">
       <p className="text-black text-[32px] font-[900] text-center mb-3">
         Verification{" "}
       </p>

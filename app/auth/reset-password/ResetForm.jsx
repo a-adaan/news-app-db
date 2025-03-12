@@ -46,9 +46,9 @@ export default function ResetForm() {
     <div className="px-3 md:px-20">
       <form
         onSubmit={handleSubmit(handleRegisterForm)}
-        className="flex flex-col justify-center space-y-5"
+        className="flex flex-col justify-center "
       >
-        <div className="group">
+        <div className="group mb-5">
           <Input
             endContent={
               <button
@@ -72,7 +72,7 @@ export default function ResetForm() {
             {...register("password", { required: true })}
           />
         </div>
-        <div className="group">
+        <div className="group mb-16">
           <Input
             endContent={
               <button
@@ -101,7 +101,7 @@ export default function ResetForm() {
           radius="sm"
           color="default"
           isLoading={isLoading}
-          className="bg-black text-white w-full h-[41px] text-base font-extrabold "
+          className="bg-black text-white w-full h-[41px]  text-base font-extrabold "
         >
           Change Password
         </Button>

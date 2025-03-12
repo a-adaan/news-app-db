@@ -53,7 +53,7 @@ export default function LoginForm() {
     <div className="px-3 md:px-20 w-full">
       <form
         onSubmit={handleSubmit(handleLoginForm)}
-        className="flex flex-col justify-center space-y-5"
+        className="flex flex-col justify-center"
       >
         <Input
           errorMessage={() => (
@@ -67,7 +67,7 @@ export default function LoginForm() {
           variant="bordered"
           {...register("email", { required: true })}
         />
-        <div className="group">
+        <div className="group mt-5 mb-16">
           <Input
             endContent={
               <button

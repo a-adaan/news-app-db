@@ -25,11 +25,11 @@ export default function Footer() {
                 News Now
               </p>
             </div>
-            <p className="text-footerTxt text-base font-normal">
+            <p className="text-footerTxt text-base font-medium">
               Customer Support :
             </p>
             <h3 className="font-bold text-base mb-6"> (629) 555-0129</h3>
-            <address className="not-italic space-y-0 text-footerTxt text-base font-normal">
+            <address className="not-italic space-y-0 text-footerTxt text-base font-medium">
               <p>
                 4517 Washington Ave. Manchester,
                 <br /> Kentucky 39495
@@ -137,7 +137,7 @@ export default function Footer() {
         </div>
       </footer>
       <footer className="bg-[#333333] h-[54px] flex">
-        <p className="text-xs text-center text-white m-auto">
+        <p className="text-sm font-medium text-center text-white m-auto">
           newsnow &copy; 2025. Design by D-bug Station Limited
         </p>
       </footer>
