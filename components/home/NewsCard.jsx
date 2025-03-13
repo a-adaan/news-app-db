@@ -9,21 +9,25 @@ export default function NewsCard({ news }) {
     return colors[Math.floor(Math.random() * colors.length)];
   };
   return (
-    <div className="w-full md:max-w-[220px] lg:max-w-[240px] h-[235px] flex flex-col md:justify-between  justify-start bg-transparent">
+    <div className="w-full md:max-w-[220px] lg:max-w-[240px] xl:max-w-[325px] xl:h-[260px] h-[235px] flex flex-col md:justify-between  justify-start bg-transparent">
       <div className="">
-        <Image
-          src={
-            `${process.env.NEXT_PUBLIC_IMG_URL}${featured_image}` ||
-            "/news/news01.jpg"
-          }
-          alt="news01"
-          width={700}
-          height={700}
-          className="w-full h-[157px] object-cover rounded"
-        />
+        <div className="overflow-hidden rounded">
+          <LoadingWrapper link={`/news/${id}`}>
+            <Image
+              src={
+                `${process.env.NEXT_PUBLIC_IMG_URL}${featured_image}` ||
+                "/news/news01.jpg"
+              }
+              alt={title}
+              width={700}
+              height={700}
+              className="w-full h-[157px] xl:h-[175px] object-cover rounded hover:scale-[1.3] transition-all duration-300 ease-in-out cursor-pointer"
+            />
+          </LoadingWrapper>
+        </div>
         <LoadingWrapper
           link={`/news/${id}`}
-          cls="max-w-[320px] md:max-w-[220px] text-[14px] font-extrabold mt-2 mb-1 text-black text-pretty hover:text-primary line-clamp-2 overflow-hidden"
+          cls="max-w-full text-[14px] font-extrabold mt-2 mb-1 text-black text-pretty hover:text-primary line-clamp-2 overflow-hidden"
         >
           {title}
         </LoadingWrapper>

@@ -38,16 +38,18 @@ export default function Slider({ sliderData }) {
         <div
           key={i}
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          className="w-full flex-shrink-0 flex-grow-0 lg:w-1/3 h-full lg:px-[1px] relative transition-all duration-300 ease-in-out"
+          className="w-full overflow-hidden flex-shrink-0 flex-grow-0 lg:w-1/3 h-full lg:px-[1px] relative transition-all duration-300 ease-in-out"
         >
-          <Image
-            src={`${process.env.NEXT_PUBLIC_IMG_URL}${slider?.image}`}
-            alt="slider"
-            width={700}
-            height={700}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute bottom-0 w-full h-1/2 place-content-end p-5 bg-gradient-to-t from-black/80 to-black/0">
+          <LoadingWrapper link={`/news/${slider?.id}`}>
+            <Image
+              src={`${process.env.NEXT_PUBLIC_IMG_URL}${slider?.image}`}
+              alt={slider?.title}
+              width={700}
+              height={700}
+              className="w-full h-full object-cover hover:scale-125 transition-all duration-300 ease-in-out cursor-pointer"
+            />
+          </LoadingWrapper>
+          <div className="absolute bottom-0 w-full h-auto place-content-end p-5 bg-gradient-to-t from-black to-black/0">
             <div className="flex mb-2">
               <LoadingWrapper
                 link={`/category/id=${slider?.category_id}&name=${slider?.category_name}`}

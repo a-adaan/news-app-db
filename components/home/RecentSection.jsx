@@ -22,11 +22,11 @@ export default async function RecentSection() {
           </span>
         </LoadingWrapper>
       </div>
-      <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-x-2 gap-y-6 xl:gap-x-5 xl:gap-y-6">
+      <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-x-2 gap-y-6 xl:gap-x-6 xl:gap-y-6">
         {recentNews?.data
-          ? recentNews?.data.map((news) => (
-              <NewsCard key={news?.id} news={news} />
-            ))
+          ? recentNews?.data
+              .slice(0, 8)
+              .map((news) => <NewsCard key={news?.id} news={news} />)
           : Array(3)
               .fill()
               .map((_, index) => <CardSkeleton key={`skeleton-${index}`} />)}

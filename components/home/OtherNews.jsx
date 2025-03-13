@@ -23,9 +23,9 @@ export default async function OtherNews() {
       </div>
       <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-x-2 gap-y-6 xl:gap-x-5 xl:gap-y-6">
         {otherNews?.data
-          ? otherNews?.data.map((news) => (
-              <NewsCard key={news?.id} news={news} />
-            ))
+          ? otherNews?.data
+              .slice(0, 8)
+              .map((news) => <NewsCard key={news?.id} news={news} />)
           : Array(3)
               .fill()
               .map((_, index) => <CardSkeleton key={`skeleton-${index}`} />)}

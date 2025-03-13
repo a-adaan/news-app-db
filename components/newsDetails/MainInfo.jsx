@@ -62,7 +62,7 @@ export default function MainInfo({ news }) {
           dangerouslySetInnerHTML={{ __html: news?.news?.description }}
         ></div>
         <div className="w-full h-[1px] bg-brdr mt-8 mb-6"></div>
-        <ShareBtn />
+        <ShareBtn url={news?.url} />
       </div>
       <CmtSec cmtData={news?.comments} />
     </div>

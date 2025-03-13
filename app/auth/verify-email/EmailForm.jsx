@@ -30,7 +30,7 @@ export default function EmailForm() {
     // setIsLoading(false);
   };
   return (
-    <div className="px-3 md:px-20 w-full">
+    <div className=" w-full">
       <form
         onSubmit={handleSubmit(handleLoginForm)}
         className="flex flex-col justify-center space-y-20"

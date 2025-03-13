@@ -25,7 +25,7 @@ export default function PageDropDown() {
     <>
       <Dropdown>
         <DropdownTrigger>
-          <span className="flex items-center">
+          <span className="flex items-center hover:text-primary">
             Pages <FaAngleDown size={15} className="ml-1" />
           </span>
         </DropdownTrigger>
@@ -34,7 +34,11 @@ export default function PageDropDown() {
             <Link
               href="/contact"
               onClick={() => handleClick("/contact")}
-              className="text-black font-semibold text-sm"
+              className={`hover:text-primary text-sm ${
+                pathname === "/contact"
+                  ? "text-primary underline underline-offset-4 font-extrabold"
+                  : "text-black font-semibold"
+              }`}
             >
               Contact
             </Link>
@@ -43,7 +47,11 @@ export default function PageDropDown() {
             <Link
               href="/privacy"
               onClick={() => handleClick("/privacy")}
-              className="text-black font-semibold text-sm"
+              className={`hover:text-primary text-sm ${
+                pathname === "/privacy"
+                  ? "text-primary underline underline-offset-4 font-extrabold"
+                  : "text-black font-semibold"
+              }`}
             >
               Privacy
             </Link>
@@ -52,7 +60,11 @@ export default function PageDropDown() {
             <Link
               href="/terms&conditions"
               onClick={() => handleClick("/terms&conditions")}
-              className="text-black font-semibold text-sm"
+              className={`hover:text-primary text-sm ${
+                pathname === "/terms&conditions"
+                  ? "text-primary underline underline-offset-4 font-extrabold"
+                  : "text-black font-semibold"
+              }`}
             >
               Terms & Condition
             </Link>

@@ -60,11 +60,21 @@ export default function LogInOutBtn() {
     <>
       {loading && <Loading />}
       {!loggedIN ? (
-        <LoadingWrapper link="/auth/login" cls="text-white text-sm">
+        <LoadingWrapper
+          link="/auth/login"
+          cls={`hover:text-primary text-sm ${
+            pathname === "/auth/login"
+              ? "text-primary underline underline-offset-4 font-extrabold"
+              : "text-white"
+          }`}
+        >
           Login
         </LoadingWrapper>
       ) : (
-        <button onClick={handleLogout} className="text-white text-sm">
+        <button
+          onClick={handleLogout}
+          className="text-white hover:text-primary text-sm"
+        >
           Logout
         </button>
       )}

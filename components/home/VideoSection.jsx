@@ -7,12 +7,11 @@ import {
   FaVolumeMute,
   FaExpand,
   FaCompress,
-  FaEllipsisH,
 } from "react-icons/fa";
 
 export default function VideoSection() {
   const [selectedVideo, setSelectedVideo] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -20,7 +19,9 @@ export default function VideoSection() {
   const [duration, setDuration] = useState(0);
   const [showControls, setShowControls] = useState(false);
   const [formattedTime, setFormattedTime] = useState("0:00");
+  const [isInView, setIsInView] = useState(false);
   const videoRef = useRef(null);
+  const videoContainerRef = useRef(null);
   const scrollContainerRef = useRef(null);
 
   const videos = [
@@ -29,6 +30,51 @@ export default function VideoSection() {
     "http://192.168.68.118/newsappflutteradminpanel/public/backend/uploads/reels-videos/1705995612_pexels-tima-miroshnichenko-6550654%20(360p).mp4",
     "http://192.168.68.118/newsappflutteradminpanel/public/backend/uploads/reels-videos/1705995581_video_inside_a_library%20(360p).mp4",
   ];
+
+  // Set up Intersection Observer to detect when video is in viewport
+  useEffect(() => {
+    const options = {
+      root: null, // viewport
+      rootMargin: "0px",
+      threshold: 0.5, // 50% of the video must be visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        setIsInView(entry.isIntersecting);
+      });
+    }, options);
+
+    if (videoContainerRef.current) {
+      observer.observe(videoContainerRef.current);
+    }
+
+    return () => {
+      if (videoContainerRef.current) {
+        observer.unobserve(videoContainerRef.current);
+      }
+    };
+  }, []);
+
+  // Control video playback based on visibility
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    if (isInView) {
+      videoRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((error) => {
+          // console.error("Autoplay failed:", error);
+          setIsPlaying(false);
+        });
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  }, [isInView, selectedVideo]);
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -124,24 +170,25 @@ export default function VideoSection() {
   return (
     <section className="w-full h-auto">
       {/* Video Container */}
-      <div className=" w-full lg:h-[590px] bg-white shadow-xl rounded-md p-[28px]">
+      <div className="w-full lg:h-[590px] bg-white shadow-xl rounded-md p-[28px]">
         <div
+          ref={videoContainerRef}
           className="relative"
           onMouseEnter={() => setShowControls(true)}
           onMouseLeave={() => setShowControls(false)}
         >
           <video
             ref={videoRef}
-            autoPlay
             muted={isMuted}
             loop
             src={videos[selectedVideo]}
-            className="w-full h-full object-cover"
+            className="w-full h-full xl:h-[520px] object-cover"
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={() => {
               setDuration(videoRef.current.duration);
               setFormattedTime("0:00");
             }}
+            playsInline
           />
 
           {/* Custom Controls */}

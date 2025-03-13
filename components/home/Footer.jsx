@@ -7,12 +7,12 @@ import LoadingWrapper from "../LoaddingWrapper";
 export default function Footer() {
   return (
     <>
-      <footer className=" bg-black text-white mt-[70px] px-3 py-5 md:p-4 lg:py-[80px]">
+      <footer className="bg-black text-white mt-[70px] px-3 py-5 lg:h-[340px] md:p-5 lg:py-[80px]">
         {/* Ensuring fixed height to avoid shifts */}
 
-        <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
-          {/* Customer Service */}
-          <div>
+        <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 text-sm">
+          {/* Customer Service - Aligned to start */}
+          <div className="lg:justify-self-start">
             <div className="flex items-center gap-[15px] my-7 md:mb-7 md:mt-0">
               <Image
                 src={"/common/logo.svg"}
@@ -38,8 +38,8 @@ export default function Footer() {
             </address>
           </div>
 
-          {/* Top Category */}
-          <div>
+          {/* Top Category - Aligned to center */}
+          <div className="lg:justify-self-center">
             <h3 className="font-bold capitalize text-base mb-6">
               Top Category
             </h3>
@@ -61,11 +61,10 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          {/* Quick LoadingWrappers */}
-          <div>
-            <h3 className="font-bold text-base capitalize mb-6">
-              Quick LoadingWrappers
-            </h3>
+
+          {/* Quick Link - Aligned to center */}
+          <div className="lg:justify-self-center">
+            <h3 className="font-bold text-base capitalize mb-6">Quick Link</h3>
             <ul className="space-y-3 text-footerTxt text-base font-medium">
               <li>
                 <LoadingWrapper link="/contact" cls="hover:text-gray-300">
@@ -88,8 +87,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Download Our App */}
-          <div>
+          {/* Download Our App - Aligned to end */}
+          <div className="lg:justify-self-end">
             <h3 className="font-bold text-base mb-6">DOWNLOAD OUR APP</h3>
             <div className="flex flex-col space-y-4">
               <div className="h-[53px] w-[176px] flex items-center justify-center gap-4 rounded-lg bg-[#333333]">

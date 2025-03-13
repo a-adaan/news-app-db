@@ -35,7 +35,7 @@ export default function MobileNav() {
         <ul
           className={`${
             open ? "translate-x-0" : " translate-x-[1000px]"
-          } transition-all duration-400 flex flex-col gap-5 absolute top-0 left-[30%] space-y-3 text-left pl-10 bg-black text-base text-white w-[70%] h-full`}
+          } transition-all duration-400 flex flex-col gap-5 font-[733] absolute top-0 left-[30%] space-y-3 text-left pl-10 bg-black text-base text-white w-[70%] h-full`}
         >
           <button onClick={toggleMenu} className="my-5 py-2 pr-3">
             <RxCross2 size={30} />

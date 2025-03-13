@@ -22,7 +22,7 @@ export default function ScrollToTopBtn() {
   }, []);
   return (
     <div
-      className={`fixed bottom-[5%] right-[5%] z-[200] ${
+      className={`fixed bottom-[5%] right-[5%] lg:right-[2%] z-[200] ${
         isVisible ? "opacity-100" : "opacity-0"
       } transition-opacity duration-300`}
     >

@@ -27,15 +27,17 @@ export default async function PopularSection() {
         {/* First news card (two rows wide) */}
 
         {popularNews?.data && (
-          <div className="relative md:col-span-2 md:row-span-2 h-[400px] md:h-full rounded">
-            <Image
-              src={`${process.env.NEXT_PUBLIC_IMG_URL}${popularNews?.data[0].featured_image}`}
-              alt="featured news"
-              layout="fill"
-              objectFit="cover"
-              className="rounded"
-            />
-            <div className="absolute bottom-0 w-full h-1/2 flex flex-col justify-end rounded-b p-5 bg-gradient-to-t from-black/80 to-black/0">
+          <div className="relative md:col-span-2 md:row-span-2 h-[400px] md:h-full rounded overflow-hidden">
+            <LoadingWrapper link={`/news/${popularNews?.data[0].id}`}>
+              <Image
+                src={`${process.env.NEXT_PUBLIC_IMG_URL}${popularNews?.data[0].featured_image}`}
+                alt="featured news"
+                layout="fill"
+                objectFit="cover"
+                className="rounded hover:scale-[1.3] transition-all duration-500 ease-in-out cursor-pointer"
+              />
+            </LoadingWrapper>
+            <div className="absolute bottom-0 w-full h-auto flex flex-col justify-end rounded-b p-5 bg-gradient-to-t from-black to-black/0">
               <div className="flex items-center gap-2">
                 <LoadingWrapper
                   link={`/category/id=${popularNews?.data[0].category_id}&name=${popularNews?.data[0].category_name}`}
@@ -60,7 +62,7 @@ export default async function PopularSection() {
         {/* Remaining news cards */}
         {popularNews?.data
           ? popularNews?.data
-              .slice(1)
+              .slice(1, 5)
               .map((news, i) => <NewsCard key={i} news={news} />)
           : Array(3)
               .fill()

@@ -95,7 +95,7 @@ export default function VotingTab() {
                     <Radio
                       value={option?.id}
                       classNames={{
-                        wrapper: "border-2 border-black",
+                        wrapper: "border-2 border-black w-4 h-4",
                         label: "text-xs font-[600]",
                       }}
                     >

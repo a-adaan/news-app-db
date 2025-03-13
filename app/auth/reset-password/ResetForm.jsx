@@ -43,7 +43,7 @@ export default function ResetForm() {
     // setIsLoading(false);
   };
   return (
-    <div className="px-3 md:px-20">
+    <div className="w-full">
       <form
         onSubmit={handleSubmit(handleRegisterForm)}
         className="flex flex-col justify-center "

@@ -33,7 +33,7 @@ export default function OTPform() {
   }, [pathname]);
 
   return (
-    <div className="px-3 md:px-20 w-full mt-[56px]">
+    <div className="w-full mt-[56px]">
       <form
         onSubmit={handleSubmit(handleOTPSubmit)}
         className="flex flex-col justify-center items-center space-y-8"

@@ -25,7 +25,7 @@ export default function NewsSection() {
       );
       const recent = await getRecentNews();
       // console.log("🚀 ~ allcategories ~ recent:", recent.data.slice(0, 3));
-      setRecentNews(recent?.data.slice(0, 3));
+      setRecentNews(recent?.data.slice(0, 4));
       // console.log(
       //   "🚀 ~ useEffect ~ categories:",
       //   categories.length > 4 ? categories.slice(0, 4) : categories
@@ -50,7 +50,7 @@ export default function NewsSection() {
           setSelectedNews={setSelectedNews}
           filterOptions={filterOptions}
         />
-        <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-x-2 gap-y-3 xl:gap-x-5 xl:gap-y-6">
+        <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-x-2 gap-y-3 xl:gap-x-[22px] xl:gap-y-6">
           {newNewsData?.data?.data
             ? newNewsData?.data?.data.map((news) => (
                 <NewsCard key={news?.id} news={news} />
