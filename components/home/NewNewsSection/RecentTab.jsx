@@ -2,28 +2,6 @@ import LoadingWrapper from "@/components/LoaddingWrapper";
 import Image from "next/image";
 
 export default function RecentTab({ tabName, data }) {
-  const newsData = [
-    {
-      img: "/news/news01.jpg",
-      title: "South Korea's President Yoon banned from foreign travel",
-      date: "aug 1,2017",
-    },
-    {
-      img: "/news/news02.jpg",
-      title: "AI technology's impact on the future of work",
-      date: "sep 2,2017",
-    },
-    {
-      img: "/news/news03.jpg",
-      title: "India's Prime Minister Narendra Modi to visit China",
-      date: "oct 3,2017",
-    },
-    {
-      img: "/news/news04.jpg",
-      title: "Apple announces new iPhones and iPads",
-      date: "nov 4,2017",
-    },
-  ];
   return (
     <div className="p-2">
       <p className="text-base font-extrabold text-black mb-2">{tabName}</p>

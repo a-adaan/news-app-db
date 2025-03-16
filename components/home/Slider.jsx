@@ -4,11 +4,23 @@ import { useState } from "react";
 import { GoArrowLeft } from "react-icons/go";
 import { GoArrowRight } from "react-icons/go";
 import LoadingWrapper from "../LoaddingWrapper";
+// Remove the incorrect import
+// import { color } from "framer-motion";
 
 export default function Slider({ sliderData }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const colors = ["orange", "blue", "gray", "green"];
+  const getRandomColor = () => {
+    return [
+      { bg: "bg-orange-500", text: "text-white" },
+      { bg: "bg-blue-600", text: "text-white" },
+      { bg: "bg-gray-700", text: "text-white" },
+      { bg: "bg-green-600", text: "text-white" },
+    ];
+  };
+
+  // Store the colors array to use it in the component
+  const colors = getRandomColor();
 
   const prevSlide = () => {
     setCurrentSlide(
@@ -55,8 +67,9 @@ export default function Slider({ sliderData }) {
                 link={`/category/id=${slider?.category_id}&name=${slider?.category_name}`}
               >
                 <span
-                  className="h-5 w-[57px] flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs"
-                  style={{ backgroundColor: colors[i % colors.length] }}
+                  className={`${colors[i % colors.length].bg} ${
+                    colors[i % colors.length].text
+                  } h-5 w-[57px] flex items-center justify-center rounded-[56px] font-extrabold text-xs`}
                 >
                   {slider?.category_name}
                 </span>
@@ -76,12 +89,14 @@ export default function Slider({ sliderData }) {
       ))}
 
       <button
+        aria-label="prev-btn"
         onClick={prevSlide}
         className="hidden absolute top-1/2 left-5 lg:left-[10%] -translate-y-full shadow-2xl w-11 h-11 backdrop-blur-lg bg-black/60 hover:bg-black/75 text-white text-3xl lg:flex justify-center items-center rounded-full"
       >
         <GoArrowLeft />
       </button>
       <button
+        aria-label="next-btn"
         onClick={nextSlide}
         className="hidden absolute top-1/2 right-5 lg:right-[10%] -translate-y-full shadow-2xl w-11 h-11 backdrop-blur-lg bg-black/60 hover:bg-black/75 text-white text-3xl lg:flex justify-center items-center rounded-full"
       >
@@ -89,12 +104,14 @@ export default function Slider({ sliderData }) {
       </button>
       {/* For small device */}
       <button
+        aria-label="prev-btn"
         onClick={prevSlideS}
         className="lg:hidden absolute top-1/2 left-5 lg:left-[10%] -translate-y-full shadow-2xl w-11 h-11 backdrop-blur-lg bg-black/60 hover:bg-black/75 text-white text-3xl flex justify-center items-center rounded-full"
       >
         <GoArrowLeft />
       </button>
       <button
+        aria-label="next-btn"
         onClick={nextSlideS}
         className="lg:hidden absolute top-1/2 right-5 lg:right-[10%] -translate-y-full shadow-2xl w-11 h-11 backdrop-blur-lg bg-black/60 hover:bg-black/75 text-white text-3xl flex justify-center items-center rounded-full"
       >

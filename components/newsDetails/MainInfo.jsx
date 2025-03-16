@@ -51,11 +51,10 @@ export default function MainInfo({ news }) {
       <div className="w-full mt-6">
         <Image
           src={`${process.env.NEXT_PUBLIC_IMG_URL}${news?.news?.featured_image}`}
-          objectFit="cover"
           width={700}
           height={700}
           alt="news"
-          className="rounded-md w-full"
+          className="rounded-md w-full object-cover"
         />
         <div
           className="text-sm font-[650] text-black text-justify mt-6 lg:mt-8"

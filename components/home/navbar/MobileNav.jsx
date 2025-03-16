@@ -6,16 +6,28 @@ import { Accordion, AccordionItem } from "@heroui/react";
 import LoadingWrapper from "@/components/LoaddingWrapper";
 import { usePathname } from "next/navigation";
 import LogInOutBtn from "./LogInOutBtn";
+import { getAllPages } from "@/app/actions/common/pages";
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
+  const [pages, setPages] = useState([]);
   const pathename = usePathname();
+
   const toggleMenu = () => {
     setOpen(!open);
   };
+
   useEffect(() => {
     setOpen(false);
   }, [pathename]);
+
+  useEffect(() => {
+    async function fetchPages() {
+      const data = await getAllPages();
+      setPages(data);
+    }
+    fetchPages();
+  }, []);
 
   return (
     <div className="block lg:hidden overflow-hidden">
@@ -57,16 +69,15 @@ export default function MobileNav() {
               <AccordionItem key="1" aria-label="Accordion 1" title="Pages">
                 <ul className=" flex flex-col gap-3 ml-5">
                   <li className="cursor-pointer mb-2">
-                    <LoadingWrapper link="/privacy">Privacy</LoadingWrapper>
-                  </li>
-                  <li className="cursor-pointer mb-2">
                     <LoadingWrapper link="/contact">Contact</LoadingWrapper>
                   </li>
-                  <li className="cursor-pointer">
-                    <LoadingWrapper link="/terms&conditions">
-                      Terms & Condition
-                    </LoadingWrapper>
-                  </li>
+                  {pages?.map((page) => (
+                    <li key={page?.id} className="cursor-pointer mb-2">
+                      <LoadingWrapper link={`/pages/${page?.slug}`}>
+                        {page?.title}
+                      </LoadingWrapper>
+                    </li>
+                  ))}
                 </ul>
               </AccordionItem>
             </Accordion>

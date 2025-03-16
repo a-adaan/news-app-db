@@ -1,12 +1,9 @@
 import NewsCard from "./NewsCard";
 import { GoChevronRight } from "react-icons/go";
 import LoadingWrapper from "../LoaddingWrapper";
-import { getNews } from "@/app/actions/common";
-import CardSkeleton from "../CardSkeleton";
+import CardSkeleton from "../skeletons/CardSkeleton";
 
-export default async function OtherNews() {
-  const otherNews = await getNews();
-  // console.log("🚀 ~ OtherNews ~ otherNews:", otherNews);
+export default async function OtherNews({ otherNews }) {
   return (
     <section className=" h-auto my-14">
       <div className="flex justify-between items-center">

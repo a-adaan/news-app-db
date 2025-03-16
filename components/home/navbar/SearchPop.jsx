@@ -8,7 +8,7 @@ export default function SearchPop() {
     <>
       <Popover color="default" placement={"bottom-end"}>
         <PopoverTrigger>
-          <CiSearch size={20} />
+          <CiSearch size={20} aria-controls="search-panel" />
         </PopoverTrigger>
         <PopoverContent>
           <Search />

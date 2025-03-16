@@ -3,27 +3,25 @@ import axios from "axios";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
-// get page content
-export const getPrivacy = async () => {
+// get pages
+export const getAllPages = async () => {
   try {
-    const res = await axios.get(`${url}/pages/privacy-policy`);
+    const res = await axios.get(`${url}/pages`);
 
-    // console.log("🚀 ~ get-privacy ~ res:", res);
-    return res.data;
+    // console.log("🚀 ~ get-all-pages ~ res:", res?.data?.data);
+    return res?.data?.data;
   } catch (error) {
-    console.log("🚀 ~ get-privacy ~ error:", error);
+    console.log("🚀 ~ get-all-pages ~ error:", error);
   }
 };
 
-// get terms content
-export const getTerms = async () => {
+// get page content
+export const getPageContent = async (name) => {
   try {
-    const res = await axios.get(`${url}/pages/terms-conditions`);
-
-    // console.log("🚀 ~ get-terms ~ res:", res);
-    return res.data;
+    const res = await axios.get(`${url}/pages/${name}`);
+    return res?.data?.data;
   } catch (error) {
-    console.log("🚀 ~ get-terms ~ error:", error);
+    console.log("🚀 ~ get-page-content ~ error:", error);
   }
 };
 

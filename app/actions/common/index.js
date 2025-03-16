@@ -116,3 +116,36 @@ export const getSearchResult = async (query) => {
     return error.response?.data || error.message || error;
   }
 };
+
+// get Video result
+export const getVideos = async () => {
+  try {
+    const res = await axios.get(`${url}/videos?page=1`);
+
+    // console.log("🚀 ~ getSingleNews ~ res:", res?.data?.data);
+    const filteredVideo = getVideoUrlArray(res?.data?.data);
+    console.log("🚀 ~ getVideos ~ filteredVideo:", filteredVideo);
+
+    return filteredVideo;
+  } catch (error) {
+    // console.log("🚀 ~ getNews ~ error:", error);
+    return error.response?.data || error.message || error;
+  }
+};
+
+function getVideoUrlArray(videosResult) {
+  if (!Array.isArray(videosResult)) return [];
+
+  return videosResult
+    .filter(
+      (video) =>
+        video?.video != null &&
+        typeof video.video === "string" &&
+        video.video.trim() !== ""
+    )
+    .map((video) => {
+      // Remove all spaces from the video URL and ensure proper encoding
+      const videoPath = video.video.trim().replace(/\s+/g, "");
+      return `${process.env.NEXT_PUBLIC_IMG_URL}${videoPath}`;
+    });
+}

@@ -9,7 +9,7 @@ import {
   FaCompress,
 } from "react-icons/fa";
 
-export default function VideoSection() {
+export default function VideoSection({ videosData }) {
   const [selectedVideo, setSelectedVideo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);

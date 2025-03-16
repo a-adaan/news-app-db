@@ -19,7 +19,7 @@ export default function ContactForm() {
     reset();
   };
   return (
-    <div className="px-3 md:px-20">
+    <div className="px-3 md:px-20 lg:px-[130px]">
       <form
         onSubmit={handleSubmit(handleContactForm)}
         className="flex flex-col justify-center space-y-5"

@@ -21,7 +21,7 @@ export default function FilterTab({
                 Number(selectedNews?.id) === Number(f?.id)
                   ? " text-primary underline underline-offset-2 font-extrabold"
                   : " text-black font-semibold"
-              } pr-4 lg:px-4 py-2 text-base  `}
+              } pr-4 lg:px-4 py-2 text-base bg-transparent `}
               onClick={() => setSelectedNews(f)}
             >
               {f?.name}

@@ -1,11 +1,9 @@
 import NewsCard from "./NewsCard";
 import { GoChevronRight } from "react-icons/go";
 import LoadingWrapper from "../LoaddingWrapper";
-import { getRecentNews } from "@/app/actions/common";
-import CardSkeleton from "../CardSkeleton";
+import CardSkeleton from "../skeletons/CardSkeleton";
 
-export default async function RecentSection() {
-  const recentNews = await getRecentNews();
+export default async function RecentSection({ recentNews }) {
   // console.log("🚀 ~ RecentSection ~ recentNews:", recentNews);
 
   return (

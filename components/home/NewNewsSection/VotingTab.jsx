@@ -119,12 +119,14 @@ export default function VotingTab() {
       </div>
       <div className="flex justify-center gap-8 mt-4">
         <button
+          aria-label="left-btn"
           onClick={prevSlide}
           className="lg:w-5 lg:h-5 w-11 h-11 bg-black/25 text-white lg:text-xs text-xl flex justify-center items-center rounded-full"
         >
           <GoArrowLeft />
         </button>
         <button
+          aria-label="right-btn"
           onClick={nextSlide}
           className="lg:w-5 lg:h-5 w-11 h-11 bg-black/25 text-white lg:text-xs text-xl flex justify-center items-center rounded-full"
         >

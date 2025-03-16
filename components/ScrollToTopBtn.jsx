@@ -29,6 +29,7 @@ export default function ScrollToTopBtn() {
       <button
         onClick={handleScrollToTop}
         className="text-2xl text-white bg-primary hover:shadow-lg p-4 rounded-full"
+        aria-label="Go-to-top"
       >
         <GoArrowUp />
       </button>

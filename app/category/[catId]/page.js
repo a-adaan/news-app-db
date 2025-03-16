@@ -1,22 +1,36 @@
-import { getCategoryNews } from "@/app/actions/common";
+import { getCategoryNews, getAllCategories } from "@/app/actions/common";
 import AdsPannel from "@/components/home/AdsPannel";
 import NewsCard from "@/components/home/NewsCard";
 
+// Force static rendering
+export const dynamic = "force-static";
+export const revalidate = 3600;
+
+// Generate static params for all categories
+export async function generateStaticParams() {
+  try {
+    // Fetch all categories
+    const categories = await getAllCategories();
+
+    // Map categories to params format
+    return (
+      categories?.data?.map((category) => ({
+        catId: `id=${category.id}&name=${encodeURIComponent(category.name)}`,
+      })) || []
+    );
+  } catch (error) {
+    console.error("Error generating static params for categories:", error);
+    return [];
+  }
+}
+
 export default async function SingleCategoryPage({ params }) {
   const { catId } = await params;
-  // console.log("🚀 ~ SingleCategoryPage ~ catId:", decodeURIComponent(catId));
   const searchParams = new URLSearchParams(decodeURIComponent(catId));
   const id = searchParams.get("id");
   const name = searchParams.get("name");
 
-  // console.log("🚀 ~ SingleCategoryPage ~ id:", id);
-  // console.log("🚀 ~ SingleCategoryPage ~ name:", name);
-
   const categories = await getCategoryNews(id);
-  // console.log(
-  //   "🚀 ~ SingleCategoryPage ~ categories:",
-  //   categories?.data?.data.length
-  // );
 
   return (
     <main className="container">

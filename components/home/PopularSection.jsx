@@ -2,13 +2,9 @@ import NewsCard from "./NewsCard";
 import { GoChevronRight } from "react-icons/go";
 import Image from "next/image";
 import LoadingWrapper from "../LoaddingWrapper";
-import { getPopularNews } from "@/app/actions/common";
-import CardSkeleton from "../CardSkeleton";
+import CardSkeleton from "../skeletons/CardSkeleton";
 
-export default async function PopularSection() {
-  const popularNews = await getPopularNews();
-  // console.log("🚀 ~ PopularSection ~ popularNews:", popularNews);
-
+export default async function PopularSection({ popularNews }) {
   return (
     <section className="h-auto my-14">
       <div className="flex justify-between items-center">
@@ -33,8 +29,7 @@ export default async function PopularSection() {
                 src={`${process.env.NEXT_PUBLIC_IMG_URL}${popularNews?.data[0].featured_image}`}
                 alt="featured news"
                 layout="fill"
-                objectFit="cover"
-                className="rounded hover:scale-[1.3] transition-all duration-500 ease-in-out cursor-pointer"
+                className="rounded object-cover  hover:scale-[1.3] transition-all duration-500 ease-in-out cursor-pointer"
               />
             </LoadingWrapper>
             <div className="absolute bottom-0 w-full h-auto flex flex-col justify-end rounded-b p-5 bg-gradient-to-t from-black to-black/0">
