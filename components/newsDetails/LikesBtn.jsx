@@ -7,7 +7,7 @@ import {
 } from "@/app/actions/common";
 import { useSearchParams } from "next/navigation";
 import { BiSolidLike } from "react-icons/bi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { addToast } from "@heroui/react";
 
 export default function LikesBtn() {
@@ -69,14 +69,16 @@ export default function LikesBtn() {
   }
 
   return (
-    <span
-      className="flex items-center gap-1 lg:gap-3 cursor-pointer"
-      onClick={handleLikes}
-    >
-      <BiSolidLike size={20} className="hover:text-primary text-[#9D9D9D]" />
-      <span className="text-xs font-extrabold text-black hover:text-primary">
-        {likes} Likes
+    <Suspense>
+      <span
+        className="flex items-center gap-1 lg:gap-3 cursor-pointer"
+        onClick={handleLikes}
+      >
+        <BiSolidLike size={20} className="hover:text-primary text-[#9D9D9D]" />
+        <span className="text-xs font-extrabold text-black hover:text-primary">
+          {likes} Likes
+        </span>
       </span>
-    </span>
+    </Suspense>
   );
 }

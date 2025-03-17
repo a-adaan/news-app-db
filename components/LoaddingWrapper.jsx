@@ -4,11 +4,15 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-export default function LoadingWrapper({ children, link, cls = "" }) {
-  const [loading, setLoading] = useState(false);
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
+// Create a client component that uses the search params
+function LinkWithLoading({
+  link,
+  pathname,
+  searchParams,
+  setLoading,
+  cls,
+  children,
+}) {
   // Get the current full URL (pathname + search params)
   const currentUrl =
     pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "");
@@ -32,14 +36,36 @@ export default function LoadingWrapper({ children, link, cls = "" }) {
 
   useEffect(() => {
     setLoading(false);
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams, setLoading]);
+
+  return (
+    <Link href={link} onClick={handleClick} className={cls}>
+      {children}
+    </Link>
+  );
+}
+
+export default function LoadingWrapper({ children, link, cls = "" }) {
+  const [loading, setLoading] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
-      <Suspense>
-        <Link href={link} onClick={handleClick} className={cls}>
+      <Suspense
+        fallback={
+          <Link href={link} className={cls}>
+            {children}
+          </Link>
+        }
+      >
+        <ClientPart
+          link={link}
+          pathname={pathname}
+          setLoading={setLoading}
+          cls={cls}
+        >
           {children}
-        </Link>
+        </ClientPart>
       </Suspense>
       {loading &&
         typeof document !== "undefined" &&
@@ -50,5 +76,22 @@ export default function LoadingWrapper({ children, link, cls = "" }) {
           document.body
         )}
     </>
+  );
+}
+
+// This component will only be rendered on the client
+function ClientPart({ link, pathname, setLoading, cls, children }) {
+  const searchParams = useSearchParams();
+
+  return (
+    <LinkWithLoading
+      link={link}
+      pathname={pathname}
+      searchParams={searchParams}
+      setLoading={setLoading}
+      cls={cls}
+    >
+      {children}
+    </LinkWithLoading>
   );
 }
