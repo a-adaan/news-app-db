@@ -52,7 +52,7 @@ export default function Slider({ sliderData }) {
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           className="w-full overflow-hidden flex-shrink-0 flex-grow-0 lg:w-1/3 h-full lg:px-[1px] relative transition-all duration-300 ease-in-out"
         >
-          <LoadingWrapper link={`/news/${slider?.id}`}>
+          <LoadingWrapper link={`/news/news?from=slider&id=${slider?.id}`}>
             <Image
               src={`${process.env.NEXT_PUBLIC_IMG_URL}${slider?.image}`}
               alt={slider?.title}
@@ -79,7 +79,7 @@ export default function Slider({ sliderData }) {
               </span>
             </div>
             <LoadingWrapper
-              link={`/news/${slider?.id}`}
+              link={`/news/news?from=slider&id=${slider?.id}`}
               cls="text-[20px] font-extrabold text-white hover:text-primary text-pretty mt-2"
             >
               {slider?.title}

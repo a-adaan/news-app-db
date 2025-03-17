@@ -12,7 +12,7 @@ import {
 export default function VideoSection({ videosData }) {
   const [selectedVideo, setSelectedVideo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);

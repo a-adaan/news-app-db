@@ -21,7 +21,7 @@ export default function NewsCard({ news }) {
       <div className="">
         <div className="overflow-hidden rounded">
           <LoadingWrapper
-            link={`/news/${id}`}
+            link={`/news/news?from=news&id=${id}`}
             aria-label={`Read more about ${title}`}
           >
             <Image
@@ -38,7 +38,7 @@ export default function NewsCard({ news }) {
           </LoadingWrapper>
         </div>
         <LoadingWrapper
-          link={`/news/${id}`}
+          link={`/news/news?from=news&id=${id}`}
           cls="max-w-full text-[14px] font-extrabold mt-2 mb-1 text-black text-pretty hover:text-primary line-clamp-2 overflow-hidden"
           aria-label={`Read more about ${title}`}
         >

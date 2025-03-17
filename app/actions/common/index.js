@@ -1,5 +1,6 @@
 "use server";
 import axios from "axios";
+import { cookies } from "next/headers";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -91,6 +92,17 @@ export const getSingleNews = async (id) => {
   }
 };
 
+//get slider single news
+export const getSliderSingleNews = async (id) => {
+  try {
+    const res = await axios.get(`${url}/slider/${id}`);
+
+    // console.log("🚀 ~ getSingleNews ~ res:", res);
+    return res.data;
+  } catch (error) {
+    console.log("🚀 ~ getNews ~ error:", error);
+  }
+};
 // get all categories
 export const getAllCategories = async () => {
   try {
@@ -123,8 +135,7 @@ export const getVideos = async () => {
     const res = await axios.get(`${url}/videos?page=1`);
 
     // console.log("🚀 ~ getSingleNews ~ res:", res?.data?.data);
-    const filteredVideo = getVideoUrlArray(res?.data?.data);
-    console.log("🚀 ~ getVideos ~ filteredVideo:", filteredVideo);
+    const filteredVideo = getVideoUrlArray(res?.data?.data); // console.log("🚀 ~ getVideos ~ filteredVideo:", filteredVideo);
 
     return filteredVideo;
   } catch (error) {
@@ -148,4 +159,80 @@ function getVideoUrlArray(videosResult) {
       const videoPath = video.video.trim().replace(/\s+/g, "");
       return `${process.env.NEXT_PUBLIC_IMG_URL}${videoPath}`;
     });
+}
+
+// increment slider like
+export async function incrementSliderLikes(id) {
+  try {
+    const res = await axios.post(`${url}/slider/increment-favorite`, {
+      slider_id: id,
+    });
+
+    // console.log("🚀 ~ incrementSliderLikes ~ res:", res.data);
+    return res.data;
+  } catch (error) {
+    // console.log("🚀 ~ get category News ~ error:", error);
+    return error.response?.data || error.message || error;
+  }
+}
+
+// increment news like
+export async function incrementNewsLikes(id) {
+  try {
+    const res = await axios.post(`${url}/news/increment-favorite`, {
+      news_id: id,
+    });
+
+    // console.log("🚀 ~ incrementSliderLikes ~ res:", res.data);
+    return res.data;
+  } catch (error) {
+    // console.log("🚀 ~ get category News ~ error:", error);
+    return error.response?.data || error.message || error;
+  }
+}
+
+// submit news comment
+export async function submitNewsCmt(data) {
+  const cookieStore = cookies();
+  const userCookie = cookieStore.get("user");
+  const userData = userCookie ? JSON.parse(userCookie?.value) : null;
+  // console.log("🚀 ~ logoutUser ~ user:", userData);
+  const token = userData?.token;
+
+  try {
+    const res = await axios.post(`${url}/save-comment`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // console.log("🚀 ~ incrementSliderLikes ~ res:", res.data);
+    return res.data;
+  } catch (error) {
+    // console.log("🚀 ~ get category News ~ error:", error);
+    return error.response?.data || error.message || error;
+  }
+}
+
+// submit slider comment
+export async function submitSliderCmt(data) {
+  const cookieStore = cookies();
+  const userCookie = cookieStore.get("user");
+  const userData = userCookie ? JSON.parse(userCookie?.value) : null;
+  // console.log("🚀 ~ logoutUser ~ user:", userData);
+  const token = userData?.token;
+
+  try {
+    const res = await axios.post(`${url}/save-comment`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // console.log("🚀 ~ incrementSliderLikes ~ res:", res.data);
+    return res.data;
+  } catch (error) {
+    // console.log("🚀 ~ get category News ~ error:", error);
+    return error.response?.data || error.message || error;
+  }
 }

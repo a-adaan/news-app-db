@@ -7,6 +7,13 @@ export default function ShowCmt({ cmt }) {
     ? `${process.env.NEXT_PUBLIC_IMG_URL}${cmt?.user?.profile_image}`
     : "/common/avater.jpeg";
 
+  // Format the updated_at date
+  const formattedDate = new Date(cmt?.updated_at).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <div className="flex gap-5 items-start ">
       <Image
@@ -23,7 +30,7 @@ export default function ShowCmt({ cmt }) {
           {cmt?.user?.name || "user"}
         </p>
         <p className="text-black text-sm font-medium">{cmt?.comment}</p>
-        <ReplyBtn />
+        <ReplyBtn date={formattedDate} />
       </div>
     </div>
   );
