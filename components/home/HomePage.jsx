@@ -14,6 +14,7 @@ import Slider from "./Slider";
 import VideoSection from "./VideoSection";
 import { Suspense } from "react";
 import SliderSkeleton from "../skeletons/SliderSkeleton";
+import CategorySection from "./CategorySection";
 
 export default async function HomePage() {
   const sliderData = await getSliderNews();
@@ -24,6 +25,7 @@ export default async function HomePage() {
   // console.log("🚀 ~ HomePage ~ slidedata:", sliderData.data);
   return (
     <main>
+      <CategorySection />
       <Marquee />
       <Suspense fallback={<SliderSkeleton />}>
         <Slider sliderData={sliderData?.data} />

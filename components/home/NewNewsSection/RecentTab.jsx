@@ -13,7 +13,7 @@ export default function RecentTab({ tabName, data }) {
                 key={news?.id}
                 className="w-full grid grid-cols-[30%_70%] h-11 xl:h-14 gap-2 "
               >
-                <LoadingWrapper link={`/news/${news?.id}`}>
+                <LoadingWrapper link={`/news/news?from=news&id=${news?.id}`}>
                   <Image
                     src={`${process.env.NEXT_PUBLIC_IMG_URL}${news?.featured_image}`}
                     alt="news01"
@@ -22,7 +22,7 @@ export default function RecentTab({ tabName, data }) {
                     className="w-full h-11 xl:h-14 object-cover rounded hover:scale-[1.05] transition-all duration-300 ease-in-out cursor-pointer"
                   />
                 </LoadingWrapper>
-                <LoadingWrapper link={`/news/${news?.id}`}>
+                <LoadingWrapper link={`/news/news?from=news&id=${news?.id}`}>
                   <p className="text-[12px] font-extrabold text-black hover:text-primary line-clamp-2 overflow-hidden text-pretty">
                     {news?.title}
                   </p>

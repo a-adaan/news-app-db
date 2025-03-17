@@ -38,7 +38,7 @@ export default function LogInOutBtn() {
       if (typeof window !== "undefined") {
         window.localStorage.removeItem("userId");
         setLoggedIN(false);
-        router.push("/");
+        router.refresh();
       }
       addToast({
         title: "success",
