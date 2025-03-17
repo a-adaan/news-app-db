@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 export default function LoadingWrapper({ children, link, cls = "" }) {
@@ -36,9 +36,11 @@ export default function LoadingWrapper({ children, link, cls = "" }) {
 
   return (
     <>
-      <Link href={link} onClick={handleClick} className={cls}>
-        {children}
-      </Link>
+      <Suspense>
+        <Link href={link} onClick={handleClick} className={cls}>
+          {children}
+        </Link>
+      </Suspense>
       {loading &&
         typeof document !== "undefined" &&
         createPortal(
