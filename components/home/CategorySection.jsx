@@ -4,7 +4,7 @@ import Link from "next/link";
 export default async function CategorySection() {
   const categories = await getAllCategories();
   return (
-    <section className="h-auto my-0 border-b border-[#838383] border-dashed">
+    <section className="hidden lg:block h-auto my-0 border-b border-[#838383] border-dashed">
       <ul className="container py-5 flex items-center justify-between text-sm font-[650]">
         {categories.map((category) => (
           <li key={category.id}>
