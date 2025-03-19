@@ -37,7 +37,7 @@ export default async function PopularSection({ popularNews }) {
                 <LoadingWrapper
                   link={`/category/id=${popularNews?.data[0].category_id}&name=${popularNews?.data[0].category_name}`}
                 >
-                  <span className="h-5 w-[57px] flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs bg-orange-700">
+                  <span className="px-[6px] py-[5px] rounded-[56px] text-white font-extrabold text-xs bg-orange-700">
                     {popularNews?.data[0].category_name}
                   </span>
                 </LoadingWrapper>

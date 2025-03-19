@@ -1,9 +1,10 @@
 "use client";
+import { verifyEmail } from "@/app/actions/auth/resetPass";
 import { addToast } from "@heroui/react";
 import { useState, useEffect } from "react";
 
 export default function ResendOtp() {
-  const [timer, setTimer] = useState(60);
+  const [timer, setTimer] = useState(10);
   const [canResend, setCanResend] = useState(false);
 
   useEffect(() => {
@@ -19,17 +20,34 @@ export default function ResendOtp() {
     return () => clearInterval(interval);
   }, [timer]);
 
-  const handleResend = () => {
+  const handleResend = async () => {
+    let email = {};
+    if (typeof window !== "undefined") {
+      email = JSON.parse(window.localStorage.getItem("otpEmail"));
+    }
     // Add your resend OTP logic here
-    addToast({
-      title: "Success",
-      description: "OTP sended successfully",
-      color: "success",
-    });
-    setTimer(60);
+    const response = await verifyEmail(email);
+    if (response.status === "success") {
+      addToast({
+        title: "Success",
+        description: response.message,
+        color: "success",
+      });
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("otpEmail", JSON.stringify(email));
+      }
+    } else {
+      addToast({
+        title: "Error",
+        description: response.message || "Failed to Send OTP",
+        color: "danger",
+        timeout: 1000,
+      });
+      setIsLoading(false);
+    }
+    setTimer(10);
     setCanResend(false);
   };
-  let timerdiv = <span className="text-primary">{timer}</span>;
 
   return (
     <div className="text-black text-base font-[800] text-center">

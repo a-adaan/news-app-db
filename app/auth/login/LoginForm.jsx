@@ -32,6 +32,12 @@ export default function LoginForm() {
     if (resp?.status === 200) {
       if (typeof window !== "undefined") {
         window.localStorage.setItem("userId", JSON.stringify(resp?.user?.id));
+        window.localStorage.setItem(
+          "userImg",
+          resp?.user.profile_image
+            ? `${process.env.NEXT_PUBLIC_IMG_URL}${resp?.user.profile_image}`
+            : "/common/default-user.png"
+        );
       }
       addToast({
         title: "Success",

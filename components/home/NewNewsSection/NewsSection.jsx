@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import NewsCard from "../NewsCard";
 import VotingTab from "./VotingTab";
 import FilterTab from "./FilterTab";

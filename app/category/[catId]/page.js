@@ -4,7 +4,7 @@ import NewsCard from "@/components/home/NewsCard";
 
 // Force static rendering
 export const dynamic = "force-static";
-export const revalidate = 30;
+export const revalidate = 10;
 
 // Generate static params for all categories
 export async function generateStaticParams() {

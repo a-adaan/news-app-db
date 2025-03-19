@@ -2,6 +2,8 @@ import AdsPannel from "@/components/home/AdsPannel";
 import NewsCard from "@/components/home/NewsCard";
 import { getPopularNews } from "../actions/common";
 
+export const revalidate = 3600;
+
 export default async function PopularNewsPage() {
   const popular = await getPopularNews();
   //   console.log("🚀 ~ PopularNewsPage ~ popular:", popular);

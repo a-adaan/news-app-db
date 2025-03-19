@@ -50,7 +50,7 @@ export default function NewsCard({ news }) {
           link={`/category/id=${category_id}&name=${category_name}`}
         >
           <span
-            className={`h-5 w-[57px] flex items-center justify-center rounded-full font-extrabold text-xs ${color.bg} ${color.text}`}
+            className={`px-[6px] py-[5px] rounded-full font-extrabold text-xs ${color.bg} ${color.text}`}
           >
             {category_name}
           </span>

@@ -1,5 +1,8 @@
 import { getAllPages, getPageContent } from "@/app/actions/common/pages";
 
+export const dynamic = "force-static";
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   try {
     // Fetch page content

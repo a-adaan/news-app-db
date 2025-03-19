@@ -4,7 +4,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function Marquee() {
+export default function Marquee({ breakingNews }) {
   const [loading, setLoading] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -32,13 +32,15 @@ export default function Marquee() {
           repeat: Infinity,
         }}
       >
-        {newsTitle.map((title, index) => (
-          <div key={index} className="flex items-center flex-shrink-0">
+        {breakingNews.map((news) => (
+          <div key={news?.id} className="flex items-center flex-shrink-0">
             <button
-              onClick={() => handleNewsClick("/news/10")}
+              onClick={() =>
+                handleNewsClick(`/news/news?from=news&id=${news?.id}`)
+              }
               className="text-[30px] text-black hover:text-primary font-[900] whitespace-nowrap"
             >
-              {title}
+              {news?.title}
             </button>
 
             <Image
@@ -60,13 +62,15 @@ export default function Marquee() {
           repeat: Infinity,
         }}
       >
-        {newsTitle.map((title, index) => (
-          <div key={index} className="flex items-center flex-shrink-0">
+        {breakingNews?.map((news) => (
+          <div key={news?.id} className="flex items-center flex-shrink-0">
             <button
-              onClick={() => handleNewsClick("/news/10")}
+              onClick={() =>
+                handleNewsClick(`/news/news?from=news&id=${news?.id}`)
+              }
               className="text-[30px] text-black hover:text-primary font-[900] whitespace-nowrap"
             >
-              {title}
+              {news?.title}
             </button>
             <Image
               src={"/common/slider.svg"}

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import ResendOtp from "./ResendOtp";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { verifyOTP } from "@/app/actions/auth/resetPass";
 
 export default function OTPform() {
   const {
@@ -15,18 +16,36 @@ export default function OTPform() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleOTPSubmit = (data) => {
+  const handleOTPSubmit = async (data) => {
     setIsLoading(true);
-    console.log("🚀 ~ handleOTPSubmit ~ data:", data);
-    addToast({
-      title: "Success",
-      description: "OTP verified successfully",
-      color: "success",
-    });
-    router.push("/auth/reset-password");
+    // console.log("🚀 ~ handleOTPSubmit ~ data:", data);
+    let email = {};
+    if (typeof window !== "undefined") {
+      email = JSON.parse(window.localStorage.getItem("otpEmail"));
+    }
+    const otpData = { ...data, ...email };
+    // console.log("🚀 ~ handleOTPSubmit ~ email:", otpData);
+
+    const response = await verifyOTP(otpData);
+    if (response.status === "success") {
+      addToast({
+        title: "Success",
+        description: response.message,
+        color: "success",
+      });
+      router.push("/auth/reset-password");
+    } else {
+      addToast({
+        title: "Error",
+        description: response.message || "Failed to verify OTP",
+        color: "danger",
+        timeout: 1000,
+      });
+      setIsLoading(false);
+    }
     reset();
-    // setIsLoading(false);
   };
+
   const pathname = usePathname();
   useEffect(() => {
     setIsLoading(false);
@@ -39,7 +58,7 @@ export default function OTPform() {
         className="flex flex-col justify-center items-center space-y-8"
       >
         <InputOtp
-          length={4}
+          length={6}
           variant="underlined"
           classNames={{
             segmentWrapper: "gap-x-10 ",

@@ -3,6 +3,8 @@ import LoadingWrapper from "@/components/LoaddingWrapper";
 import Image from "next/image";
 import { getAllCategories } from "../actions/common";
 
+export const revalidate = 10;
+
 export default async function CategoryPage() {
   const categoryData = await getAllCategories();
   // console.log("🚀 ~ CategoryPage ~ categoryData:", categoryData);

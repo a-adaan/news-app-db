@@ -1,4 +1,5 @@
 "use client";
+import { verifyEmail } from "@/app/actions/auth/resetPass";
 import { Input, Button, addToast } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,21 +15,37 @@ export default function EmailForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
+
   useEffect(() => {
     setIsLoading(false);
   }, [pathname]);
-  const handleLoginForm = (data) => {
+
+  const handleLoginForm = async (data) => {
     setIsLoading(true);
-    console.log("🚀 ~ handleContactForm ~ data:", data);
-    addToast({
-      title: "Success",
-      description: "Logged in successfully",
-      color: "success",
-    });
-    router.push("/auth/otp");
+    // console.log("🚀 ~ handleContactForm ~ data:", data);
+    const response = await verifyEmail(data);
+    if (response.status === "success") {
+      addToast({
+        title: "Success",
+        description: response.message,
+        color: "success",
+      });
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("otpEmail", JSON.stringify(data));
+      }
+      router.push("/auth/otp");
+    } else {
+      addToast({
+        title: "Error",
+        description: response.message || "Failed to Send OTP",
+        color: "danger",
+        timeout: 1000,
+      });
+      setIsLoading(false);
+    }
     reset();
-    // setIsLoading(false);
   };
+
   return (
     <div className=" w-full">
       <form

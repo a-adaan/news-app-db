@@ -1,4 +1,5 @@
 import {
+  getBreakingNews,
   getNews,
   getPopularNews,
   getRecentNews,
@@ -16,17 +17,20 @@ import { Suspense } from "react";
 import SliderSkeleton from "../skeletons/SliderSkeleton";
 import CategorySection from "./CategorySection";
 
+export const revalidate = 10;
+
 export default async function HomePage() {
   const sliderData = await getSliderNews();
   const recentNews = await getRecentNews();
   const popularNews = await getPopularNews();
   const otherNews = await getNews();
   const videoData = await getVideos();
+  const breaking = await getBreakingNews();
   // console.log("🚀 ~ HomePage ~ slidedata:", sliderData.data);
   return (
     <main>
       <CategorySection />
-      <Marquee />
+      <Marquee breakingNews={breaking} />
       <Suspense fallback={<SliderSkeleton />}>
         <Slider sliderData={sliderData?.data} />
       </Suspense>

@@ -69,7 +69,7 @@ export default function Slider({ sliderData }) {
                 <span
                   className={`${colors[i % colors.length].bg} ${
                     colors[i % colors.length].text
-                  } h-5 w-[57px] flex items-center justify-center rounded-[56px] font-extrabold text-xs`}
+                  } px-[6px] py-[5px] rounded-[56px] font-extrabold text-xs`}
                 >
                   {slider?.category_name}
                 </span>

@@ -236,3 +236,46 @@ export async function submitSliderCmt(data) {
     return error.response?.data || error.message || error;
   }
 }
+
+// get web setting
+export async function getWebSetting() {
+  try {
+    const res = await axios.get(`${url}/web-settings`);
+
+    // console.log("🚀 ~ incrementSliderLikes ~ res:", res.data);
+    return res.data?.data;
+  } catch (error) {
+    // console.log("🚀 ~ get category News ~ error:", error);
+    return error.response?.data || error.message || error;
+  }
+}
+
+// get breaking news
+export async function getBreakingNews() {
+  try {
+    const res = await axios.get(`${url}/breaking-news`);
+
+    // console.log("🚀 ~ breaking news ~ res:", res.data?.data);
+    const filteredNews = res.data?.data?.map((data) => ({
+      id: data?.news?.id,
+      title: data?.news?.title,
+    }));
+    // console.log("🚀 ~ getBreakingNews ~ filteredNews:", filteredNews);
+    return filteredNews;
+  } catch (error) {
+    // console.log("🚀 ~ get category News ~ error:", error);
+    return error.response?.data || error.message || error;
+  }
+}
+
+// contact us
+export async function submitContactUS(data) {
+  try {
+    const res = await axios.post(`${url}/message/send`, data);
+
+    return res.data;
+  } catch (error) {
+    // console.log("🚀 ~ get category News ~ error:", error);
+    return error.response?.data || error.message || error;
+  }
+}

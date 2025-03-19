@@ -47,11 +47,14 @@ export default function MobileNav() {
         <ul
           className={`${
             open ? "translate-x-0" : " translate-x-[1000px]"
-          } transition-all duration-400 flex flex-col gap-5 font-[733] absolute top-0 left-[30%] space-y-3 text-left pl-10 bg-black text-base text-white w-[70%] h-full`}
+          } transition-all duration-400 flex flex-col gap-5 font-[733] absolute top-0 left-[30%] space-y-3 text-left pl-10 pr-8 bg-black text-base text-white w-[70%] h-full`}
         >
-          <button onClick={toggleMenu} className="my-5 py-2 pr-3">
-            <RxCross2 size={30} />
-          </button>
+          <div className="flex items-center justify-between my-5">
+            <button onClick={toggleMenu} className="">
+              <RxCross2 size={30} />
+            </button>
+            <LogInOutBtn />
+          </div>
           <li className="cursor-pointer">
             <LoadingWrapper link="/">Home</LoadingWrapper>
           </li>
@@ -61,9 +64,7 @@ export default function MobileNav() {
           <li className="cursor-pointer">
             <LoadingWrapper link="/category">Category</LoadingWrapper>
           </li>
-          <li className="cursor-pointer">
-            <LogInOutBtn />
-          </li>
+
           <li className="cursor-pointer pr-5">
             <Accordion className="p-0">
               <AccordionItem key="1" aria-label="Accordion 1" title="Pages">

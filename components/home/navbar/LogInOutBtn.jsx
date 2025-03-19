@@ -5,18 +5,24 @@ import LoadingWrapper from "@/components/LoaddingWrapper";
 import { addToast } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Avatar } from "@heroui/react";
 
 export default function LogInOutBtn() {
   const [loggedIN, setLoggedIN] = useState(false);
   const [loading, setloading] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [userImg, setUserImg] = useState("");
   const router = useRouter();
   const pathname = usePathname();
 
   // Function to check login status
   const checkLoginStatus = () => {
     if (typeof window !== "undefined") {
-      const userId = window.localStorage.getItem("userId");
-      setLoggedIN(!!userId);
+      const storedUserId = window.localStorage.getItem("userId");
+      const storedUserImg = window.localStorage.getItem("userImg");
+      setUserId(storedUserId || "");
+      setUserImg(storedUserImg);
+      setLoggedIN(!!storedUserId);
     }
   };
 
@@ -33,11 +39,13 @@ export default function LogInOutBtn() {
   const handleLogout = async () => {
     setloading(true);
     const res = await logoutUser();
-    // console.log("��� ~ handleLogout ~ res:", res);
     if (res.status == 200) {
       if (typeof window !== "undefined") {
         window.localStorage.removeItem("userId");
+        window.localStorage.removeItem("userImg");
         setLoggedIN(false);
+        setUserId("");
+        setUserImg("");
         router.refresh();
       }
       addToast({
@@ -45,15 +53,14 @@ export default function LogInOutBtn() {
         description: res?.message,
         color: "success",
       });
-      setloading(false);
     } else {
       addToast({
         title: "Error",
         description: res?.message,
         color: "danger",
       });
-      setloading(false);
     }
+    setloading(false);
   };
 
   return (
@@ -71,12 +78,20 @@ export default function LogInOutBtn() {
           Login
         </LoadingWrapper>
       ) : (
-        <button
-          onClick={handleLogout}
-          className="text-white hover:text-primary text-sm"
-        >
-          Logout
-        </button>
+        <div className="flex items-center gap-5 lg:gap-3">
+          <button
+            onClick={handleLogout}
+            className="text-white hover:text-primary text-sm"
+          >
+            Logout
+          </button>
+          <LoadingWrapper
+            link={`/user?userId=${userId}`}
+            cls="ring-primary ring-2 rounded-full"
+          >
+            <Avatar size="sm" src={`${userImg}`} />
+          </LoadingWrapper>
+        </div>
       )}
     </>
   );

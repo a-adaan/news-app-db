@@ -1,4 +1,5 @@
 "use client";
+import { resetPassword } from "@/app/actions/auth/resetPass";
 import { Input, Button, addToast } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -16,10 +17,11 @@ export default function ResetForm() {
   } = useForm();
   const router = useRouter();
   const pass = watch("password");
-  const cPass = watch("confirm-password");
+  const cPass = watch("password_confirmation");
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleC, setIsVisibleC] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
@@ -30,18 +32,40 @@ export default function ResetForm() {
   useEffect(() => {
     setIsLoading(false);
   }, [pathname]);
-  const handleRegisterForm = (data) => {
+
+  const handleRegisterForm = async (data) => {
     console.log("🚀 ~ handleContactForm ~ data:", data);
-    addToast({
-      title: "Success",
-      description: "Resetting password successful",
-      color: "success",
-    });
-    setIsLoading(true);
-    router.push("/auth/login");
+    let email = {};
+    if (typeof window !== "undefined") {
+      email = JSON.parse(window.localStorage.getItem("otpEmail"));
+    }
+    const passwordData = { ...data, ...email };
+    // console.log("🚀 ~ handleOTPSubmit ~ email:", otpData);
+
+    const response = await resetPassword(passwordData);
+    if (response.status === "success") {
+      addToast({
+        title: "Success",
+        description: response.message,
+        color: "success",
+      });
+      if (typeof window !== "undefined") {
+        window.localStorage.removeItem("otpEmail");
+      }
+      router.push("/auth/login");
+    } else {
+      addToast({
+        title: "Error",
+        description: response.message || "Failed to change Password",
+        color: "danger",
+        timeout: 1000,
+      });
+      setIsLoading(false);
+    }
     reset();
     // setIsLoading(false);
   };
+
   return (
     <div className="w-full">
       <form
@@ -93,7 +117,7 @@ export default function ResetForm() {
             label="Confirm Password"
             type={isVisibleC ? "text" : "password"}
             variant="bordered"
-            {...register("confirm-password", { required: true })}
+            {...register("password_confirmation", { required: true })}
           />
         </div>
         <Button

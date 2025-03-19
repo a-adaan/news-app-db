@@ -9,41 +9,81 @@ import CardSkeleton from "@/components/skeletons/CardSkeleton";
 export default function LatestNewsPage() {
   const [selectedNews, setSelectedNews] = useState();
   const [filterOptions, setFilterOptions] = useState([]);
-  const [newNewsData, setNewNewsData] = useState(null);
+  const [allCategoryNews, setAllCategoryNews] = useState({});
+  const [displayedNews, setDisplayedNews] = useState(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Fetch all categories and recent news on initial render
   useEffect(() => {
-    const allcategories = async () => {
-      const categories = await getAllCategories();
-      setSelectedNews(categories[0]);
-      setFilterOptions(
-        categories.length > 4 ? categories.slice(0, 4) : categories
-      );
+    const fetchInitialData = async () => {
+      try {
+        // Get all categories
+        const categories = await getAllCategories();
+        setFilterOptions(
+          categories.length > 4 ? categories.slice(0, 4) : categories
+        );
+
+        // Set the first category as selected by default
+        setSelectedNews(categories[0]);
+
+        // Fetch news for all categories in parallel
+        const newsPromises = categories.slice(0, 4).map(async (category) => {
+          const newsData = await getCategoryNews(category.id);
+          return { categoryId: category.id, data: newsData?.data?.data || [] };
+        });
+
+        const allNewsResults = await Promise.all(newsPromises);
+
+        // Convert array of results to an object with category IDs as keys
+        const newsObject = allNewsResults.reduce((acc, item) => {
+          acc[item.categoryId] = item.data;
+          return acc;
+        }, {});
+
+        setAllCategoryNews(newsObject);
+
+        // Set the initial displayed news to the first category
+        if (categories[0]) {
+          setDisplayedNews(newsObject[categories[0].id] || []);
+        }
+      } catch (error) {
+        console.error("Error fetching initial data:", error);
+      }
     };
 
-    allcategories();
+    fetchInitialData();
   }, []);
 
-  useEffect(() => {
-    const getNews = async () => {
-      const newNews = await getCategoryNews(selectedNews?.id);
-      setNewNewsData(newNews?.data?.data);
-      // console.log("🚀 ~ getNews ~ res:", newNews);
-    };
-    getNews();
-  }, [selectedNews]);
+  // Handle category change with transition
+  const handleCategoryChange = (category) => {
+    setIsTransitioning(true);
+
+    // Set the selected category immediately for UI feedback
+    setSelectedNews(category);
+
+    // Add a small delay for the transition effect
+    setTimeout(() => {
+      setDisplayedNews(allCategoryNews[category.id] || []);
+      setIsTransitioning(false);
+    }, 200);
+  };
   return (
     <main className="container">
       <div className="grid grid-cols-1 md:grid-cols-[70%_1fr] lg:grid-cols-[75%_1fr] lg:gap-8 gap-3 h-auto my-14">
         <div>
           <FilterTab
             selectedNews={selectedNews}
-            setSelectedNews={setSelectedNews}
+            setSelectedNews={handleCategoryChange}
             filterOptions={filterOptions}
           />
-          <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-x-2 gap-y-3 xl:gap-x-5 xl:gap-y-6">
-            {newNewsData ? (
-              newNewsData.length > 0 ? (
-                newNewsData.map((news) => (
+          <div
+            className={`flex flex-col items-center md:flex-row md:flex-wrap gap-x-2 gap-y-3 xl:gap-x-[22px] xl:gap-y-6 transition-opacity duration-300 ease-in-out ${
+              isTransitioning ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            {displayedNews ? (
+              displayedNews.length > 0 ? (
+                displayedNews.map((news) => (
                   <NewsCard key={news?.id} news={news} />
                 ))
               ) : (

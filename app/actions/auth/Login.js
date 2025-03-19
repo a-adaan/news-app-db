@@ -22,7 +22,7 @@ export const loginUser = async (data) => {
       });
 
       // Get the cookieStore first
-      const cookieStore = cookies();
+      const cookieStore = await cookies();
       // Set the cookie using the correct method
       cookieStore.set("user", userData, {
         httpOnly: true,
@@ -44,10 +44,10 @@ export const loginUser = async (data) => {
 export const logoutUser = async () => {
   try {
     // Get the cookieStore first
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const userCookie = cookieStore.get("user");
     const userData = userCookie ? JSON.parse(userCookie?.value) : null;
-    console.log("🚀 ~ logoutUser ~ user:", userData);
+    // console.log("🚀 ~ logoutUser ~ user:", userData);
     const token = userData?.token;
 
     if (token) {
@@ -67,7 +67,7 @@ export const logoutUser = async () => {
       // Clear the cookie after successful logout
       cookieStore.delete("user");
 
-      console.log("🚀 ~ logoutUser ~ response:", res.data);
+      // console.log("🚀 ~ logoutUser ~ response:", res.data);
       return { message: "Logged out successfully", status: 200 };
     } else {
       // No token found, just clear the cookie
@@ -81,11 +81,125 @@ export const logoutUser = async () => {
     );
 
     // Get the cookieStore first
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     cookieStore.delete("user");
 
     return {
       message: error.response?.data?.message || "Failed to log out",
+      status: 500,
+    };
+  }
+};
+
+//get user data
+export const getUserData = async () => {
+  try {
+    // Get the cookieStore first
+    const cookieStore = await cookies();
+    const userCookie = cookieStore.get("user");
+    const userData = userCookie ? JSON.parse(userCookie?.value) : null;
+    // console.log("🚀 User ~ user:", userData);
+    const token = userData?.token;
+
+    if (token) {
+      // Send request to backend logout endpoint with bearer token
+      const res = await axios.get(`${url}/user`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // console.log("🚀 ~ getUser ~ response:", res.data);
+      return { data: res?.data?.data?.user, status: 200 };
+    } else {
+      return { message: "No active session found", status: 500 };
+    }
+  } catch (error) {
+    // console.log(
+    //   "🚀 ~ getUser ~ error:",
+    //   error.response?.data || error.message || error
+    // );
+    return {
+      message: error.response?.data?.message || "Failed to log out",
+      status: 500,
+    };
+  }
+};
+
+//update user data
+export const updateUser = async (data) => {
+  try {
+    // Get the cookieStore first
+    const cookieStore = await cookies();
+    const userCookie = cookieStore.get("user");
+    const userData = userCookie ? JSON.parse(userCookie?.value) : null;
+    // console.log("🚀 User ~ user:", userData);
+    const token = userData?.token;
+
+    if (token) {
+      // Send request to backend logout endpoint with bearer token
+      const res = await axios.post(`${url}/update-user-info`, data, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // console.log("🚀 ~ getUser ~ response:", res.data);
+      return { data: res?.data, status: 200 };
+    } else {
+      return { message: "No active session found", status: 500 };
+    }
+  } catch (error) {
+    // console.log(
+    //   "🚀 ~ updateUser ~ error:",
+    //   error.response?.data || error.message || error
+    // );
+    return {
+      message: error.response?.data?.message || "Failed to update",
+      status: 500,
+    };
+  }
+};
+
+//delete user data
+export const deleteUser = async (id) => {
+  try {
+    // Get the cookieStore first
+    const cookieStore = await cookies();
+    const userCookie = cookieStore.get("user");
+    const userData = userCookie ? JSON.parse(userCookie?.value) : null;
+    // console.log("🚀 User ~ user:", userData);
+    const token = userData?.token;
+
+    if (token) {
+      // Send request to backend logout endpoint with bearer token
+      const res = await axios.get(`${url}/auth/delete/${id}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      cookieStore.delete("user");
+
+      // console.log("🚀 ~ getUser ~ response:", res.data);
+      return { data: res?.data, status: 200 };
+    } else {
+      cookieStore.delete("user");
+
+      return { message: "No active session found", status: 500 };
+    }
+  } catch (error) {
+    // console.log(
+    //   "🚀 ~ delete User ~ error:",
+    //   error.response?.data || error.message || error
+    // );
+    return {
+      message: error.response?.data?.message || "Failed to delete",
       status: 500,
     };
   }

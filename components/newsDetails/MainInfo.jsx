@@ -16,20 +16,20 @@ export default function MainInfo({ news }) {
         link={`/category/id=${
           news?.news?.category_id || news?.slider?.category_id
         }&name=${news?.news?.category_name || news?.slider?.category_name}`}
-        cls="lg:hidden"
+        cls="lg:hidden "
       >
-        <span className="lg:hidden h-5 w-[57px] flex items-center my-3 justify-center rounded-[56px] text-white font-extrabold text-xs bg-[#6E74FF]">
+        <span className="lg:hidden px-[6px] py-[5px] justify-center rounded-[56px] text-white font-extrabold text-xs bg-[#6E74FF]">
           {news?.news?.category_name || news?.slider?.category_name}
         </span>
       </LoadingWrapper>
-      <div className="flex items-center justify-between lg:mt-6 ">
+      <div className="flex items-center justify-between mt-3 lg:mt-6 ">
         <LoadingWrapper
           link={`/category/id=${
             news?.news?.category_id || news?.slider?.category_id
           }&name=${news?.news?.category_name || news?.slider?.category_name}`}
           cls="hidden lg:block"
         >
-          <span className="hidden h-5 w-[57px] lg:flex items-center justify-center rounded-[56px] text-white font-extrabold text-xs bg-[#6E74FF]">
+          <span className="hidden px-[6px] py-[5px] lg:block justify-center rounded-[56px] text-white font-extrabold text-xs bg-[#6E74FF]">
             {news?.news?.category_name || news?.slider?.category_name}
           </span>
         </LoadingWrapper>
