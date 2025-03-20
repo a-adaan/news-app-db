@@ -132,14 +132,20 @@ export const getSearchResult = async (query) => {
 // get Video result
 export const getVideos = async () => {
   try {
-    const res = await axios.get(`${url}/videos?page=1`);
+    const res = await axios.get(`${url}/reels?page=1`);
 
-    // console.log("🚀 ~ getSingleNews ~ res:", res?.data?.data);
-    const filteredVideo = getVideoUrlArray(res?.data?.data); // console.log("🚀 ~ getVideos ~ filteredVideo:", filteredVideo);
+    // console.log("🚀 ~ API Response:", res?.data);
+    // console.log("🚀 ~ Reels Data:", res?.data?.data);
+
+    const filteredVideo = getVideoUrlArray(res?.data?.data);
+    // console.log("🚀 ~ getVideos ~ filteredVideo:", filteredVideo);
 
     return filteredVideo;
   } catch (error) {
-    // console.log("🚀 ~ getNews ~ error:", error);
+    console.error(
+      "🚀 ~ API Error:",
+      error.response?.data || error.message || error
+    );
     return error.response?.data || error.message || error;
   }
 };
@@ -150,14 +156,16 @@ function getVideoUrlArray(videosResult) {
   return videosResult
     .filter(
       (video) =>
-        video?.video != null &&
-        typeof video.video === "string" &&
-        video.video.trim() !== ""
+        (typeof video?.video === "string" && video.video.trim() !== "") ||
+        (typeof video?.other_url === "string" && video.other_url.trim() !== "")
     )
     .map((video) => {
-      // Remove all spaces from the video URL and ensure proper encoding
-      const videoPath = video.video.trim().replace(/\s+/g, "");
-      return `${process.env.NEXT_PUBLIC_IMG_URL}${videoPath}`;
+      const videoPath =
+        typeof video?.video === "string"
+          ? `${process.env.NEXT_PUBLIC_IMG_URL}${video.video}`
+          : video.other_url;
+
+      return videoPath;
     });
 }
 

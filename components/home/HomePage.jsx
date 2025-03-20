@@ -38,7 +38,7 @@ export default async function HomePage() {
         <NewsSection />
         <RecentSection recentNews={recentNews} />
         <PopularSection popularNews={popularNews} />
-        <VideoSection videosData={videoData} />
+        <VideoSection videos={videoData} />
         <OtherNews otherNews={otherNews} />
       </div>
     </main>

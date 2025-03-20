@@ -9,7 +9,7 @@ import {
   FaCompress,
 } from "react-icons/fa";
 
-export default function VideoSection({ videosData }) {
+export default function VideoSection({ videos }) {
   const [selectedVideo, setSelectedVideo] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0);
@@ -24,12 +24,12 @@ export default function VideoSection({ videosData }) {
   const videoContainerRef = useRef(null);
   const scrollContainerRef = useRef(null);
 
-  const videos = [
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-    "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    "http://192.168.68.118/newsappflutteradminpanel/public/backend/uploads/reels-videos/1705995612_pexels-tima-miroshnichenko-6550654%20(360p).mp4",
-    "http://192.168.68.118/newsappflutteradminpanel/public/backend/uploads/reels-videos/1705995581_video_inside_a_library%20(360p).mp4",
-  ];
+  // const videos = [
+  //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+  //   "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //   "http://192.168.68.118/newsappflutteradminpanel/public/backend/uploads/reels-videos/1705995612_pexels-tima-miroshnichenko-6550654%20(360p).mp4",
+  //   "http://192.168.68.118/newsappflutteradminpanel/public/backend/uploads/reels-videos/1705995581_video_inside_a_library%20(360p).mp4",
+  // ];
 
   // Set up Intersection Observer to detect when video is in viewport
   useEffect(() => {
@@ -181,7 +181,7 @@ export default function VideoSection({ videosData }) {
             ref={videoRef}
             muted={isMuted}
             loop
-            src={videos[selectedVideo]}
+            src={videos ? videos[selectedVideo] : null}
             className="w-full h-full xl:h-[520px] object-cover"
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={() => {
@@ -243,7 +243,7 @@ export default function VideoSection({ videosData }) {
         className="w-full h-auto my-10 overflow-x-auto custom-scrollbar"
       >
         <div className="flex justify-start items-center gap-5 whitespace-nowrap pb-2">
-          {videos.map((video, index) => (
+          {videos?.map((video, index) => (
             <div
               key={index}
               onClick={() => setSelectedVideo(index)}
