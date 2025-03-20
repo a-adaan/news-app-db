@@ -17,8 +17,6 @@ import { Suspense } from "react";
 import SliderSkeleton from "../skeletons/SliderSkeleton";
 import CategorySection from "./CategorySection";
 
-export const revalidate = 10;
-
 export default async function HomePage() {
   const sliderData = await getSliderNews();
   const recentNews = await getRecentNews();
