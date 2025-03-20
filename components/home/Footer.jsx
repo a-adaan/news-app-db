@@ -7,6 +7,9 @@ import LoadingWrapper from "../LoaddingWrapper";
 import { getWebSetting } from "@/app/actions/common";
 import Link from "next/link";
 import { getAllPages } from "@/app/actions/common/pages";
+
+export const revalidate = 3600;
+
 export default async function Footer() {
   const footer = await getWebSetting();
 
