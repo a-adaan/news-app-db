@@ -31,7 +31,9 @@ export default function CategoryDropdown({ categories }) {
               title: "font-semibold",
             }}
           >
-            {category.name}
+            <Link href={`/category/id=${category?.id}&name=${category?.name}`}>
+              {category.name}
+            </Link>
           </DropdownItem>
         ))}
       </DropdownMenu>
