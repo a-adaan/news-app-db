@@ -1,4 +1,5 @@
 import {
+  fetchNewsData,
   getBreakingNews,
   getNews,
   getPopularNews,
@@ -24,6 +25,7 @@ export default async function HomePage() {
   const otherNews = await getNews();
   const videoData = await getVideos();
   const breaking = await getBreakingNews();
+  const { categories, allCategoryNews } = await fetchNewsData();
   // console.log("🚀 ~ HomePage ~ slidedata:", sliderData.data);
   return (
     <main>
@@ -33,7 +35,11 @@ export default async function HomePage() {
         <Slider sliderData={sliderData?.data} />
       </Suspense>
       <div className="container">
-        <NewsSection />
+        <NewsSection
+          initialCategories={categories}
+          initialRecentNews={recentNews?.data?.slice(0, 4)}
+          initialAllCategoryNews={allCategoryNews}
+        />
         <RecentSection recentNews={recentNews} />
         <PopularSection popularNews={popularNews} />
         <VideoSection videos={videoData} />

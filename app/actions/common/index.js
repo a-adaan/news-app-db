@@ -287,3 +287,33 @@ export async function submitContactUS(data) {
     return error.response?.data || error.message || error;
   }
 }
+
+export async function fetchNewsData() {
+  try {
+    // Fetch categories
+    const categories = await getAllCategories();
+
+    // Fetch news for each category
+    const newsPromises = categories.slice(0, 4).map(async (category) => {
+      const newsData = await getCategoryNews(category.id);
+      const categoryNews = newsData?.data?.data || [];
+      return { categoryId: category.id, data: categoryNews.slice(0, 6) };
+    });
+
+    const allNewsResults = await Promise.all(newsPromises);
+
+    // Convert array of results into an object
+    const allCategoryNews = allNewsResults.reduce((acc, item) => {
+      acc[item.categoryId] = item.data;
+      return acc;
+    }, {});
+
+    return {
+      categories: categories.slice(0, 4),
+      allCategoryNews,
+    };
+  } catch (error) {
+    console.error("Error fetching news data:", error);
+    return { categories: [], recentNews: [], allCategoryNews: {} };
+  }
+}

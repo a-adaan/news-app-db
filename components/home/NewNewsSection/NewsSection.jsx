@@ -1,79 +1,29 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NewsCard from "../NewsCard";
 import VotingTab from "./VotingTab";
 import FilterTab from "./FilterTab";
 import RecentTab from "./RecentTab";
-import {
-  getAllCategories,
-  getCategoryNews,
-  getRecentNews,
-} from "@/app/actions/common";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
 
-export default function NewsSection() {
-  const [selectedNews, setSelectedNews] = useState();
-  const [filterOptions, setFilterOptions] = useState([]);
-  const [allCategoryNews, setAllCategoryNews] = useState({});
-  const [displayedNews, setDisplayedNews] = useState(null);
-  const [recentNews, setRecentNews] = useState(null);
+export default function NewsSectionClient({
+  initialCategories,
+  initialRecentNews,
+  initialAllCategoryNews,
+}) {
+  const [selectedNews, setSelectedNews] = useState(initialCategories[0]);
+  const [filterOptions] = useState(initialCategories);
+  const [allCategoryNews] = useState(initialAllCategoryNews);
+  const [displayedNews, setDisplayedNews] = useState(
+    initialAllCategoryNews[initialCategories[0]?.id] || []
+  );
+  const [recentNews] = useState(initialRecentNews);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Fetch all categories and recent news on initial render
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      try {
-        // Get all categories
-        const categories = await getAllCategories();
-        setFilterOptions(
-          categories.length > 4 ? categories.slice(0, 4) : categories
-        );
-
-        // Set the first category as selected by default
-        setSelectedNews(categories[0]);
-
-        // Get recent news
-        const recent = await getRecentNews();
-        setRecentNews(recent?.data?.slice(0, 4));
-
-        // Fetch news for all categories in parallel
-        const newsPromises = categories.slice(0, 4).map(async (category) => {
-          const newsData = await getCategoryNews(category.id);
-          const categoryNews = newsData?.data?.data || [];
-          const limitedNews = categoryNews.slice(0, 6);
-          return { categoryId: category.id, data: limitedNews };
-        });
-
-        const allNewsResults = await Promise.all(newsPromises);
-
-        // Convert array of results to an object with category IDs as keys
-        const newsObject = allNewsResults.reduce((acc, item) => {
-          acc[item.categoryId] = item.data;
-          return acc;
-        }, {});
-
-        setAllCategoryNews(newsObject);
-
-        // Set the initial displayed news to the first category
-        if (categories[0]) {
-          setDisplayedNews(newsObject[categories[0].id] || []);
-        }
-      } catch (error) {
-        console.error("Error fetching initial data:", error);
-      }
-    };
-
-    fetchInitialData();
-  }, []);
-
-  // Handle category change with transition
   const handleCategoryChange = (category) => {
     setIsTransitioning(true);
-
-    // Set the selected category immediately for UI feedback
     setSelectedNews(category);
 
-    // Add a small delay for the transition effect
     setTimeout(() => {
       setDisplayedNews(allCategoryNews[category.id] || []);
       setIsTransitioning(false);
@@ -110,7 +60,7 @@ export default function NewsSection() {
           )}
         </div>
       </div>
-      <div className="w-full rounded border overflow-hidden border-brdr mt-5 md:mt-0 ">
+      <div className="w-full rounded border overflow-hidden border-brdr mt-5 md:mt-0">
         <VotingTab />
         <RecentTab tabName={"Most Recent"} data={recentNews} />
       </div>
