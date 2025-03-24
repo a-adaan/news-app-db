@@ -2,7 +2,7 @@ import AdsPannel from "@/components/home/AdsPannel";
 import NewsCard from "@/components/home/NewsCard";
 import { getRecentNews } from "../actions/common";
 
-export const revalidate = 30;
+export const revalidate = 3600;
 
 export default async function RecentNews() {
   const recent = await getRecentNews();

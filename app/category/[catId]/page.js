@@ -3,8 +3,8 @@ import AdsPannel from "@/components/home/AdsPannel";
 import NewsCard from "@/components/home/NewsCard";
 
 // Force static rendering
-export const dynamic = "force-static";
-export const revalidate = 10;
+// export const dynamic = "force-static";
+export const revalidate = 3600;
 
 // Generate static params for all categories
 export async function generateStaticParams() {
