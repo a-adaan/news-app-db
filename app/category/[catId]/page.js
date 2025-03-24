@@ -11,10 +11,11 @@ export async function generateStaticParams() {
   try {
     // Fetch all categories
     const categories = await getAllCategories();
+    // console.log("🚀 ~ generateStaticParams ~ categories:", categories);
 
     // Map categories to params format
     return (
-      categories?.data?.map((category) => ({
+      categories?.map((category) => ({
         catId: `id=${category.id}&name=${encodeURIComponent(category.name)}`,
       })) || []
     );
